@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="206.0" style="-fx-background-color: e0e0e0;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <Button fx:id="btSearch" layoutX="140.0" layoutY="14.0" mnemonicParsing="false" text="Search" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+            <TextField fx:id="tfSearchedWord" layoutX="8.0" layoutY="10.0" prefHeight="25.0" prefWidth="127.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+            <ListView fx:id="lvWords" layoutX="3.0" layoutY="49.0" prefHeight="321.0" prefWidth="186.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="227.0" layoutY="10.0" prefHeight="380.0" prefWidth="366.0" style="-fx-background-color: orange;" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <Button mnemonicParsing="false" text="Sound" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="10.0" />
+            <TextArea fx:id="taMeaning" layoutX="14.0" layoutY="52.0" prefHeight="320.0" prefWidth="342.0" />
+            <Button mnemonicParsing="false" text="Delete" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="10.0" />
+            <Button mnemonicParsing="false" text="Add" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="10.0" />
+            <Button mnemonicParsing="false" text="Edit" AnchorPane.topAnchor="10.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
