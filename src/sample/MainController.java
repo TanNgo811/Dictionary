@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class MainController implements Initializable {
     @FXML
     public Button btSearch;
 
@@ -84,10 +84,7 @@ public class Controller implements Initializable {
         }
     }
 
-    /**
-     * Edit Words Function.
-     */
-    public static void editWords(Dictionary testDictionary, String english) {
 
-    }
+
+
 }

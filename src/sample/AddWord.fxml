@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AddController">
+    <children>
+        <Label layoutX="14.0" layoutY="15.0" prefHeight="42.0" prefWidth="185.0" text="ADD NEW WORD" textAlignment="CENTER" textOverrun="CLIP">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <Button fx:id="btnCancel" layoutX="452.0" layoutY="24.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Cancel" />
+        <Button fx:id="btnConfim" layoutX="304.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Confirm" />
+        <AnchorPane layoutX="14.0" layoutY="66.0" prefHeight="320.0" prefWidth="282.0" style="-fx-background-color: orange;">
+            <children>
+                <Label layoutX="116.0" layoutY="14.0" prefHeight="42.0" prefWidth="51.0" text="ENGLISH" textAlignment="CENTER" textOverrun="CLIP">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <TextArea fx:id="taEnglish" layoutX="14.0" layoutY="69.0" prefHeight="237.0" prefWidth="255.0" />
+            </children></AnchorPane>
+        <AnchorPane layoutX="304.0" layoutY="66.0" prefHeight="320.0" prefWidth="282.0" style="-fx-background-color: e0e0e0;">
+            <children>
+                <Label layoutX="103.0" layoutY="14.0" prefHeight="42.0" prefWidth="78.0" text="VIETNAMESE" textAlignment="CENTER" textOverrun="CLIP">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <TextArea fx:id="taVietnamese" layoutX="14.0" layoutY="69.0" prefHeight="237.0" prefWidth="255.0" />
+            </children></AnchorPane>
+    </children>
+</AnchorPane>

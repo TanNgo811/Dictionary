@@ -1,7 +1,6 @@
 package code;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Scanner;
 
 public class DictionaryManagement {
@@ -111,8 +110,12 @@ public class DictionaryManagement {
     /**
      * Edit Words Function.
      */
-    public static void editWords(Dictionary testDictionary, String english) {
-
+    public static void editWords(Dictionary testDictionary, String english, String vietnamese) {
+        for (Word i : testDictionary.words) {
+            if (i.getWordTarget() == english) {
+                i.setWordExplain(vietnamese);
+            }
+        }
     }
 
     /**
@@ -127,11 +130,45 @@ public class DictionaryManagement {
     }
 
     /**
+     * Create File Function.
+     */
+    public static String dictionaryCreateFile(Dictionary testDictionary, String filename) {
+        String file = filename + ".txt";
+        try {
+            File expFile = new File(file);
+            if (expFile.createNewFile()) {
+                System.out.println("File created: " + expFile.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return file;
+    }
+
+    /**
      * Export To File Function.
      */
-    public static void dictionaryExportToFile(Dictionary testDictionary) {
+    public static void dictionaryExportToFile(Dictionary testDictionary, String file) {
+        try {
+            File fout = new File(file + ".txt");
+            FileOutputStream fos = new FileOutputStream(fout);
 
-
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+            for (Word i : testDictionary.words) {
+                bw.write(i.getWordTarget() + "\t" + i.getWordExplain());
+                bw.newLine();
+            }
+//            fileWriter.write("Files in Java might be tricky, but it is fun enough!");
+//            fileWriter.write(newDictionary.words.get(1).getWordTarget() + " " + newDictionary.words.get(1).getWordExplain());
+            bw.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     public static void dictionarySearcher(Dictionary testDictionary) {
