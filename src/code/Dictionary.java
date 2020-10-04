@@ -14,9 +14,9 @@ public class Dictionary {
         Dictionary newDictionary = new Dictionary();
         DictionaryCommandline program = new DictionaryCommandline();
         DictionaryManagement management = new DictionaryManagement();
-//        management.insertFromFile(newDictionary);
-        program.dictionaryAdvanced(newDictionary);
-//        management.dictionaryExportToFile(newDictionary, "testExport");
+        management.insertFromFile(newDictionary);
+//        program.dictionaryAdvanced(newDictionary);
+        management.dictionaryExportToFile(newDictionary, "export");
     }
 
 }
