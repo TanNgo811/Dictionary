@@ -4,18 +4,37 @@ import code.Dictionary;
 import code.DictionaryManagement;
 import code.Word;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import javafx.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     @FXML
     public Button btSearch;
+
+    @FXML
+    public Button btnEdit;
+
+    @FXML
+    public Button btnAdd;
+
+    @FXML
+    public Button btnDelete;
+
+    @FXML
+    public Button btnSound;
 
     @FXML
     public TextField tfSearchedWord;
@@ -73,6 +92,21 @@ public class MainController implements Initializable {
 
         });
 
+//        btnEdit.setOnMouseClicked(event -> {
+//            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(getClass().getResource("EditWord.fxml"));
+//            Parent editViewParent = null;
+//            try {
+//                editViewParent = loader.load();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+////        Parent editViewParent = FXMLLoader.load(getClass().getResource("EditWord.fxml"));
+//            Scene scene = new Scene(editViewParent);
+//            stage.setScene(scene);
+//        });
+
 
     }
 
@@ -84,7 +118,42 @@ public class MainController implements Initializable {
         }
     }
 
+    public void handleEdit(ActionEvent actionEvent) throws IOException{
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("EditWord.fxml"));
+        Parent editViewParent = loader.load();
+//        Parent editViewParent = FXMLLoader.load(getClass().getResource("EditWord.fxml"));
+        Scene scene = new Scene(editViewParent);
+        stage.setScene(scene);
+    }
 
+    public void handleAdd(ActionEvent actionEvent) throws IOException{
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("AddWord.fxml"));
+        Parent editViewParent = loader.load();
+//        Parent editViewParent = FXMLLoader.load(getClass().getResource("EditWord.fxml"));
+        Scene scene = new Scene(editViewParent);
+        stage.setScene(scene);
+    }
 
+    public void handleExport(ActionEvent actionEvent) throws IOException{
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("ExportFile.fxml"));
+        Parent editViewParent = loader.load();
+//        Parent editViewParent = FXMLLoader.load(getClass().getResource("EditWord.fxml"));
+        Scene scene = new Scene(editViewParent);
+        stage.setScene(scene);
+    }
+
+    public void handleDelete(ActionEvent actionEvent) throws IOException{
+
+    }
+
+    public void handleSound(ActionEvent actionEvent) throws IOException{
+
+    }
 
 }
