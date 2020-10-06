@@ -29,6 +29,17 @@ public class Word {
         this.wordTarget = wordTarget;
     }
 
+    public int compareTo(Word word)
+    {
+        String wordTarget = word.getWordTarget().toLowerCase();
+        return this.wordTarget.toLowerCase().compareTo(wordTarget);
+    }
+
+    public String toString()
+    {
+        return "[wordTarget: " + this.wordTarget + ", wordExplain: " + this.wordExplain + "]";
+    }
+
 
 }
 

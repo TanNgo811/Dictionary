@@ -40,12 +40,12 @@ public class DictionaryManagement {
         String vietnamese = new String();
         Word newWord;
         try {
-            File dictionaryFile = new File(".\\src\\dictionary.txt");
+            File dictionaryFile = new File(".\\src\\dict.txt");
             Scanner sc = new Scanner(dictionaryFile);
 
             while (sc.hasNextLine()){
                 String line = sc.nextLine();
-                String[] arrOfStr = line.split("    ", 2);
+                String[] arrOfStr = line.split("\t", 2);
                 english = arrOfStr[0];
                 vietnamese = arrOfStr[1];
                 newWord = new Word();

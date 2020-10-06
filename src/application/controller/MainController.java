@@ -1,8 +1,11 @@
-package sample;
+package application.controller;
 
 import code.Dictionary;
 import code.DictionaryManagement;
 import code.Word;
+import javazoom.jl.decoder.JavaLayerException;
+import tools.TextToSpeechGoogle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,8 +20,11 @@ import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainController implements Initializable {
     @FXML
@@ -33,8 +39,8 @@ public class MainController implements Initializable {
     @FXML
     public Button btnDelete;
 
-    @FXML
-    public Button btnSound;
+//    @FXML
+//    public Button btnSound;
 
     @FXML
     public TextField tfSearchedWord;
@@ -114,7 +120,6 @@ public class MainController implements Initializable {
         management.insertFromFile(dictionary);
         for (Word i : dictionary.words){
             lvWords.getItems().add(i.getWordTarget());
-            System.out.println(i.getWordTarget());
         }
     }
 
@@ -152,8 +157,42 @@ public class MainController implements Initializable {
 
     }
 
-    public void handleSound(ActionEvent actionEvent) throws IOException{
+    public void handleTextToSpeed(ActionEvent actionEvent)
+    {
+        System.out.println(".......Playing");
+        String word = tfSearchedWord.getText();
 
+        Button speaker = (Button) actionEvent.getSource();
+        String targetLang = speaker.getId();
+
+        Thread playAudioThread = new Thread(() -> {
+            PLayTextToSpeechAudio(word, targetLang);
+        });
+        playAudioThread.start();
+
+    }
+
+    public void PLayTextToSpeechAudio(String word, String language) {
+        TextToSpeechGoogle audio = new TextToSpeechGoogle();
+        InputStream sound = null;
+
+        if (word == null) {
+            word = tfSearchedWord.getText();
+        }
+
+        try {
+            sound = audio.getAudio(word, language);
+        } catch (IOException ioe) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ioe);
+        }
+
+        try {
+            if (sound != null) {
+                audio.play(sound);
+            }
+        } catch (JavaLayerException jle) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, jle);
+        }
     }
 
 }
