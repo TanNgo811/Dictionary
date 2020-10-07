@@ -126,7 +126,7 @@ public class MainController implements Initializable {
     public void handleEdit(ActionEvent actionEvent) throws IOException{
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("EditWord.fxml"));
+        loader.setLocation(getClass().getResource("../fxml/EditWord.fxml"));
         Parent editViewParent = loader.load();
 //        Parent editViewParent = FXMLLoader.load(getClass().getResource("EditWord.fxml"));
         Scene scene = new Scene(editViewParent);
@@ -136,7 +136,7 @@ public class MainController implements Initializable {
     public void handleAdd(ActionEvent actionEvent) throws IOException{
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("AddWord.fxml"));
+        loader.setLocation(getClass().getResource("../fxml/AddWord.fxml"));
         Parent editViewParent = loader.load();
 //        Parent editViewParent = FXMLLoader.load(getClass().getResource("EditWord.fxml"));
         Scene scene = new Scene(editViewParent);
@@ -146,7 +146,7 @@ public class MainController implements Initializable {
     public void handleExport(ActionEvent actionEvent) throws IOException{
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("ExportFile.fxml"));
+        loader.setLocation(getClass().getResource("../fxml/ExportFile.fxml"));
         Parent editViewParent = loader.load();
 //        Parent editViewParent = FXMLLoader.load(getClass().getResource("EditWord.fxml"));
         Scene scene = new Scene(editViewParent);
@@ -154,7 +154,7 @@ public class MainController implements Initializable {
     }
 
     public void handleDelete(ActionEvent actionEvent) throws IOException{
-
+//        String word =
     }
 
     public void handleTextToSpeed(ActionEvent actionEvent)

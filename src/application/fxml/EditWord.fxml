@@ -18,7 +18,7 @@
             </font>
         </Label>
         <Button fx:id="btnCancel" layoutX="452.0" layoutY="24.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="134.0" text="Cancel" />
-        <Button fx:id="btnConfim" layoutX="304.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Confirm" />
+        <Button fx:id="btnConfirm" layoutX="304.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Confirm" />
         <AnchorPane layoutX="14.0" layoutY="66.0" prefHeight="320.0" prefWidth="282.0" style="-fx-background-color: orange;">
             <children>
                 <Label layoutX="116.0" layoutY="14.0" prefHeight="42.0" prefWidth="51.0" text="ENGLISH" textAlignment="CENTER" textOverrun="CLIP">

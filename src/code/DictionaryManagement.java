@@ -40,7 +40,7 @@ public class DictionaryManagement {
         String vietnamese = new String();
         Word newWord;
         try {
-            File dictionaryFile = new File(".\\src\\dict.txt");
+            File dictionaryFile = new File(".\\src\\dict2.txt");
             Scanner sc = new Scanner(dictionaryFile);
 
             while (sc.hasNextLine()){
@@ -153,7 +153,7 @@ public class DictionaryManagement {
      */
     public static void dictionaryExportToFile(Dictionary testDictionary, String file) {
         try {
-            File fout = new File(file + ".txt");
+            File fout = new File(".\\src\\" + file + ".txt");
             FileOutputStream fos = new FileOutputStream(fout);
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));

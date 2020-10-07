@@ -26,7 +26,7 @@ public class ExportController {
     public void goBack (ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("MainScene.fxml"));
+        loader.setLocation(getClass().getResource("../fxml/MainScene.fxml"));
         Parent mainParent = loader.load();
         Scene scene = new Scene(mainParent);
         stage.setScene(scene);
