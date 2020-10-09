@@ -4,6 +4,7 @@ import code.Dictionary;
 import code.DictionaryManagement;
 import code.Word;
 import javazoom.jl.decoder.JavaLayerException;
+import tools.DictionarySearcher;
 import tools.TextToSpeechGoogle;
 
 import javafx.fxml.FXML;
@@ -22,6 +23,7 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,42 +54,42 @@ public class MainController implements Initializable {
     public TextArea taMeaning;
 
     Dictionary dictionary = new Dictionary();
-    DictionaryManagement management = new DictionaryManagement();
+//    DictionaryManagement management = new DictionaryManagement();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.initializeWordList();
+
         btSearch.setOnMouseClicked(event -> {
             System.out.println("Search!!!");
             String searchedWord = tfSearchedWord.getText();
-            if (searchedWord != null && searchedWord.equals("") == false) {
+            if (!searchedWord.trim().equals("")) {
                 System.out.println("Searched Word: " + searchedWord);
-                String wordMeaning = new String();
-                for (Word i : dictionary.words){
-                    try {
-                        if (i.getWordTarget().equals(searchedWord)) {
-                            wordMeaning = i.getWordExplain();
-
-                        }
-                    } catch (NullPointerException npe){
-
-                    }
+                ArrayList<Word> searchList = DictionarySearcher.searcherForCommandline(searchedWord, dictionary.words);
+                String wordMeaning = "";
+                try {
+                    updateWordList(searchList);
+                    wordMeaning = searchList.get(0).getWordExplain();
+                } catch  (IndexOutOfBoundsException iobe) { //(NullPointerException npe)
 
                 }
                 taMeaning.setText(wordMeaning);
+            } else {
+                System.out.println("Reset!!!");
+                initializeWordList();
             }
         });
-        this.initializeWordList();
 
         lvWords.setOnMouseClicked(event -> {
             String searchedWord = lvWords.getSelectionModel().getSelectedItem();
-            if (searchedWord != null && searchedWord.equals("") == false) {
-                System.out.println("Searched World: " + searchedWord);
+            if (!searchedWord.equals("")) {
+                System.out.println("Clicked Word: " + searchedWord);
                 String wordMeaning = new String();
                 for (Word i : dictionary.words){
                     try {
                         if (i.getWordTarget().equals(searchedWord)) {
                             wordMeaning = i.getWordExplain();
-
+                            tfSearchedWord.setText(searchedWord);
                         }
                     } catch (NullPointerException npe){
 
@@ -113,12 +115,33 @@ public class MainController implements Initializable {
 //            stage.setScene(scene);
 //        });
 
+        btnDelete.setOnMouseClicked(event ->{
+            String word = tfSearchedWord.getText();
+            if (!word.equals("")) {
+                DictionaryManagement.deleteWords(dictionary, word);
+                //TODO: make notification
+                System.out.println("Delete Worked!!!");
+                updateWordList(dictionary.words);
+            } else {
+                System.out.println("Nothing to Delete!!!");
+            }
 
+            //TODO: add export after delete word
+        });
     }
 
     public void initializeWordList() {
-        management.insertFromFile(dictionary);
+        dictionary.words.clear();
+        DictionaryManagement.insertFromFile(dictionary);
+        lvWords.getItems().clear();
         for (Word i : dictionary.words){
+            lvWords.getItems().add(i.getWordTarget());
+        }
+    }
+
+    public void updateWordList(ArrayList<Word> updatedArray) {
+        lvWords.getItems().clear();
+        for (Word i : updatedArray){
             lvWords.getItems().add(i.getWordTarget());
         }
     }
@@ -154,7 +177,7 @@ public class MainController implements Initializable {
     }
 
     public void handleDelete(ActionEvent actionEvent) throws IOException{
-//        String word =
+
     }
 
     public void handleTextToSpeed(ActionEvent actionEvent)

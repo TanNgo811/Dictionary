@@ -1,5 +1,7 @@
 package application.controller;
 
+import application.Main;
+import code.DictionaryManagement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,5 +43,9 @@ public class AddController implements Initializable {
         Parent mainParent = loader.load();
         Scene scene = new Scene(mainParent);
         stage.setScene(scene);
+    }
+
+    public void confirm (ActionEvent actionEvent) throws IOException {
+
     }
 }

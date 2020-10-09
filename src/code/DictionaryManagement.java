@@ -112,7 +112,7 @@ public class DictionaryManagement {
      */
     public static void editWords(Dictionary testDictionary, String english, String vietnamese) {
         for (Word i : testDictionary.words) {
-            if (i.getWordTarget() == english) {
+            if (i.getWordTarget().equals(english)) {
                 i.setWordExplain(vietnamese);
             }
         }
@@ -122,11 +122,7 @@ public class DictionaryManagement {
      * Delete Words Function.
      */
     public static void deleteWords(Dictionary testDictionary, String english) {
-        for (Word i : testDictionary.words) {
-            if (i.getWordTarget().equals(english)){
-                testDictionary.words.remove(i);
-            }
-        }
+        testDictionary.words.removeIf(n -> (n.getWordTarget().equals(english)));
     }
 
     /**
