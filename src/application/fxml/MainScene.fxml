@@ -5,28 +5,28 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainController">
-   <children>
-      <AnchorPane prefHeight="400.0" prefWidth="206.0" style="-fx-background-color: e0e0e0;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-         <children>
-            <Button fx:id="btSearch" layoutX="144.0" layoutY="14.0" mnemonicParsing="false" text="Search" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0" />
-            <TextField fx:id="tfSearchedWord" layoutX="10.0" layoutY="14.0" prefHeight="25.0" prefWidth="127.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="14.0" />
-            <ListView fx:id="lvWords" layoutX="3.0" layoutY="49.0" prefHeight="321.0" prefWidth="186.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="227.0" layoutY="10.0" prefHeight="380.0" prefWidth="366.0" style="-fx-background-color: orange;" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-         <children>
-            <Button fx:id="en" layoutX="305.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleTextToSpeed" text="Sound" AnchorPane.leftAnchor="305.0" AnchorPane.topAnchor="14.0" />
-            <TextArea fx:id="taMeaning" layoutX="14.0" layoutY="86.0" prefHeight="286.0" prefWidth="342.0" />
-            <Button fx:id="btnDelete" layoutX="180.0" layoutY="14.0" mnemonicParsing="false" text="Delete" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="14.0" />
-            <Button fx:id="btnAdd" layoutX="130.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAdd" text="Add" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="14.0" />
-            <Button fx:id="btnEdit" layoutX="80.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleEdit" text="Edit" AnchorPane.topAnchor="14.0" />
-            <Button fx:id="btnExport" layoutX="247.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleExport" text="Export" />
-            <Label fx:id="selectedText" layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="212.0" text="Label">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </children>
+    <children>
+        <AnchorPane prefHeight="400.0" prefWidth="206.0" style="-fx-background-color: e0e0e0;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <children>
+                <Button fx:id="btSearch" layoutX="144.0" layoutY="14.0" mnemonicParsing="false" text="Search" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0" />
+                <TextField fx:id="tfSearchedWord" layoutX="10.0" layoutY="14.0" prefHeight="25.0" prefWidth="127.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="14.0" />
+                <ListView fx:id="lvWords" layoutX="3.0" layoutY="49.0" prefHeight="321.0" prefWidth="186.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="227.0" layoutY="10.0" prefHeight="380.0" prefWidth="366.0" style="-fx-background-color: orange;" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <children>
+                <Button fx:id="en" layoutX="305.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleTextToSpeed" text="Sound" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                <TextArea fx:id="taMeaning" layoutX="14.0" layoutY="86.0" prefHeight="286.0" prefWidth="342.0" />
+                <Button fx:id="btnDelete" layoutX="180.0" layoutY="14.0" mnemonicParsing="false" text="Delete" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="5.0" />
+                <Button fx:id="btnAdd" layoutX="130.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleAdd" text="Add" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="5.0" />
+                <Button fx:id="btnEdit" layoutX="80.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleEdit" text="Edit" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="5.0" />
+                <Button fx:id="btnExport" mnemonicParsing="false" onAction="#handleExport" text="Export" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="5.0" />
+                <Label fx:id="lbWord" layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="212.0" >
+                    <font>
+                        <Font size="27.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>
