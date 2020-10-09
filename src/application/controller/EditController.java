@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.Main;
 import code.Dictionary;
 import code.DictionaryManagement;
 import code.Word;
@@ -16,7 +17,6 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class EditController implements Initializable{
@@ -34,8 +34,8 @@ public class EditController implements Initializable{
     public TextArea taVietnamese;
 
     private Word oldWord;
-    private DictionaryManagement management;
-    private Dictionary dictionary;
+//    private DictionaryManagement management;
+//    private Dictionary dictionary;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -43,10 +43,10 @@ public class EditController implements Initializable{
 //        taVietnamese.setText(oldWord.getWordExplain());
     }
 
-    public void EditController(DictionaryManagement management, Word oldWord) {
-        this.management = management;
-        this.oldWord = oldWord;
-    }
+//    public EditController(DictionaryManagement management, Word oldWord) {
+//        this.management = management;
+//        this.oldWord = oldWord;
+//    }
 
     public void handleConfirmBtn(ActionEvent actionEvent) throws IOException {
         String wordTarget = taEnglish.getText();
@@ -55,9 +55,9 @@ public class EditController implements Initializable{
         if (wordTarget == null || wordExplain == null || wordTarget.equals("") || wordExplain.equals("")) {
             System.out.println("Edit Error!");
         } else {
-            management.deleteWords(dictionary, oldWord.getWordTarget());
-            management.addWords(dictionary, wordTarget, wordExplain);
-            management.dictionaryExportToFile(dictionary, "dict2");
+            DictionaryManagement.deleteWords(Main.mainDictionary, oldWord.getWordTarget());
+            DictionaryManagement.addWords(Main.mainDictionary, wordTarget, wordExplain);
+            DictionaryManagement.dictionaryExportToFile(Main.mainDictionary, "dict2");
 
             goBack(actionEvent);
             System.out.println("Edit Successfully");
