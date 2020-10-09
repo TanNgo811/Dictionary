@@ -7,16 +7,15 @@ import javazoom.jl.decoder.JavaLayerException;
 import tools.DictionarySearcher;
 import tools.TextToSpeechGoogle;
 
+import static application.Main.mainDictionary;
+
+import javafx.scene.control.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
@@ -41,8 +40,11 @@ public class MainController implements Initializable {
     @FXML
     public Button btnDelete;
 
-//    @FXML
-//    public Button btnSound;
+    @FXML
+    public Button btnExport;
+
+    @FXML
+    public Button btnSound;
 
     @FXML
     public TextField tfSearchedWord;
@@ -53,7 +55,10 @@ public class MainController implements Initializable {
     @FXML
     public TextArea taMeaning;
 
-    Dictionary dictionary = new Dictionary();
+    @FXML
+    public Label lbWord;
+
+//    Dictionary mainDictionary = new Dictionary();
 //    DictionaryManagement management = new DictionaryManagement();
 
     @Override
@@ -65,14 +70,17 @@ public class MainController implements Initializable {
             String searchedWord = tfSearchedWord.getText();
             if (!searchedWord.trim().equals("")) {
                 System.out.println("Searched Word: " + searchedWord);
-                ArrayList<Word> searchList = DictionarySearcher.searcherForCommandline(searchedWord, dictionary.words);
+                ArrayList<Word> searchList = DictionarySearcher.searcherForCommandline(searchedWord, mainDictionary.words);
                 String wordMeaning = "";
+                String wordTarget = "";
                 try {
                     updateWordList(searchList);
                     wordMeaning = searchList.get(0).getWordExplain();
-                } catch  (IndexOutOfBoundsException iobe) { //(NullPointerException npe)
+                    wordTarget = searchList.get(0).getWordTarget();
+                } catch  (IndexOutOfBoundsException ibe) { //(NullPointerException npe)
 
                 }
+                lbWord.setText(wordTarget);
                 taMeaning.setText(wordMeaning);
             } else {
                 System.out.println("Reset!!!");
@@ -85,16 +93,13 @@ public class MainController implements Initializable {
             if (!searchedWord.equals("")) {
                 System.out.println("Clicked Word: " + searchedWord);
                 String wordMeaning = new String();
-                for (Word i : dictionary.words){
-                    try {
-                        if (i.getWordTarget().equals(searchedWord)) {
-                            wordMeaning = i.getWordExplain();
-                            tfSearchedWord.setText(searchedWord);
-                        }
-                    } catch (NullPointerException npe){
-
+                for (Word i : mainDictionary.words){
+                    if (i.getWordTarget().equals(searchedWord)) {
+                        wordMeaning = i.getWordExplain();
+                        tfSearchedWord.setText(searchedWord);
                     }
                 }
+                lbWord.setText(searchedWord);
                 taMeaning.setText(wordMeaning);
             }
 
@@ -116,25 +121,26 @@ public class MainController implements Initializable {
 //        });
 
         btnDelete.setOnMouseClicked(event ->{
-            String word = tfSearchedWord.getText();
+            String word = lbWord.getText();
             if (!word.equals("")) {
-                DictionaryManagement.deleteWords(dictionary, word);
+                DictionaryManagement.deleteWords(mainDictionary, word);
                 //TODO: make notification
                 System.out.println("Delete Worked!!!");
-                updateWordList(dictionary.words);
+                updateWordList(mainDictionary.words);
+                lbWord.setText("");
+                taMeaning.clear();
             } else {
                 System.out.println("Nothing to Delete!!!");
             }
-
-            //TODO: add export after delete word
+            //TODO: export after delete word
         });
     }
 
     public void initializeWordList() {
-        dictionary.words.clear();
-        DictionaryManagement.insertFromFile(dictionary);
+        mainDictionary.words.clear();
+        DictionaryManagement.insertFromFile(mainDictionary);
         lvWords.getItems().clear();
-        for (Word i : dictionary.words){
+        for (Word i : mainDictionary.words){
             lvWords.getItems().add(i.getWordTarget());
         }
     }
@@ -151,7 +157,7 @@ public class MainController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/EditWord.fxml"));
         Parent editViewParent = loader.load();
-//        Parent editViewParent = FXMLLoader.load(getClass().getResource("EditWord.fxml"));
+//        editViewParent = FXMLLoader.load(getClass().getResource("EditWord.fxml"));
         Scene scene = new Scene(editViewParent);
         stage.setScene(scene);
     }
@@ -183,10 +189,10 @@ public class MainController implements Initializable {
     public void handleTextToSpeed(ActionEvent actionEvent)
     {
         System.out.println(".......Playing");
-        String word = tfSearchedWord.getText();
+        String word =lbWord.getText();
 
-        Button speaker = (Button) actionEvent.getSource();
-        String targetLang = speaker.getId();
+        btnSound = (Button) actionEvent.getSource();
+        String targetLang = btnSound.getId();
 
         Thread playAudioThread = new Thread(() -> {
             PLayTextToSpeechAudio(word, targetLang);
@@ -200,7 +206,7 @@ public class MainController implements Initializable {
         InputStream sound = null;
 
         if (word == null) {
-            word = tfSearchedWord.getText();
+            word = lbWord.getText();
         }
 
         try {
