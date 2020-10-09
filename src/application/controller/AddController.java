@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static application.Main.mainDictionary;
+
 public class AddController implements Initializable {
 
     @FXML
@@ -45,7 +47,19 @@ public class AddController implements Initializable {
         stage.setScene(scene);
     }
 
-    public void confirm (ActionEvent actionEvent) throws IOException {
+    public void handleBtnConfirm (ActionEvent actionEvent) throws IOException {
+        String wordTarget = taEnglish.getText();
+        String wordExplain = taVietnamese.getText();
 
+        if (wordTarget.equals("") || wordExplain.equals("")) {
+            System.out.println("Add Error!");
+        } else {
+            DictionaryManagement.addWords(mainDictionary, wordTarget, wordExplain);
+            DictionaryManagement.dictionaryExportToFile(mainDictionary, "dict2");
+
+            goBack(actionEvent);
+            System.out.println("Add Successfully");
+
+        }
     }
 }
