@@ -1,5 +1,7 @@
 package application.controller;
 
+import application.Main;
+import code.DictionaryManagement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +16,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static application.Main.mainDictionary;
 
 public class AddController implements Initializable {
 
@@ -41,5 +45,21 @@ public class AddController implements Initializable {
         Parent mainParent = loader.load();
         Scene scene = new Scene(mainParent);
         stage.setScene(scene);
+    }
+
+    public void handleBtnConfirm (ActionEvent actionEvent) throws IOException {
+        String wordTarget = taEnglish.getText();
+        String wordExplain = taVietnamese.getText();
+
+        if (wordTarget.equals("") || wordExplain.equals("")) {
+            System.out.println("Add Error!");
+        } else {
+            DictionaryManagement.addWords(mainDictionary, wordTarget, wordExplain);
+            DictionaryManagement.dictionaryExportToFile(mainDictionary, "dict2");
+
+            goBack(actionEvent);
+            System.out.println("Add Successfully");
+
+        }
     }
 }
