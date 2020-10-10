@@ -487,3 +487,5 @@ earth-god	trái đất thần
 earth-goddess	nữ thần đất
 earthgrubber	người làm đất
 earth-homing	trái đất
+tan	ngo
+sua tu	tu tu nha

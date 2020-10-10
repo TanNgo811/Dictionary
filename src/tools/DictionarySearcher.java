@@ -22,8 +22,16 @@ public class DictionarySearcher {
         return result;
     }
 
-    public static FilteredList<String> searcherForApplication(String oldValue, String newValue, FilteredList<String> Word) {
-        Word.setPredicate(string -> string.toLowerCase().startsWith(newValue));
-        return Word;
+    public static Word searcherWord(String searchWord, ArrayList<Word> words) {
+        ArrayList<Word> result = new ArrayList<>();
+
+        for (int i = 0; i < words.size(); i++) {
+            if (words.get(i).getWordTarget().toLowerCase().contains(searchWord)) {
+                result.add(words.get(i));
+            }
+        }
+
+        return result.get(0);
     }
+
 }

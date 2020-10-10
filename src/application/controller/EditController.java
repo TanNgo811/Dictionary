@@ -4,6 +4,8 @@ import application.Main;
 import code.Dictionary;
 import code.DictionaryManagement;
 import code.Word;
+import application.controller.MainController;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,9 +13,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
@@ -33,39 +35,47 @@ public class EditController implements Initializable{
     @FXML
     public TextArea taVietnamese;
 
-    private Word oldWord;
-//    private DictionaryManagement management;
-//    private Dictionary dictionary;
+    @FXML
+    public Label oldWord;
+
+
+
+    MainController application = new MainController();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        taEnglish.setText(oldWord.getWordTarget());
-//        taVietnamese.setText(oldWord.getWordExplain());
+
     }
 
-//    public EditController(DictionaryManagement management, Word oldWord) {
-//        this.management = management;
-//        this.oldWord = oldWord;
-//    }
+
+    public EditController() {
+
+    }
+
+    public void setWordEdit(Word edit) {
+        taEnglish.setText(edit.getWordTarget());
+        taVietnamese.setText(edit.getWordExplain());
+        oldWord.setText(edit.getWordTarget());
+    }
+
 
     public void handleConfirmBtn(ActionEvent actionEvent) throws IOException {
+
         String wordTarget = taEnglish.getText();
         String wordExplain = taVietnamese.getText();
 
         if (wordTarget == null || wordExplain == null || wordTarget.equals("") || wordExplain.equals("")) {
             System.out.println("Edit Error!");
         } else {
-            DictionaryManagement.deleteWords(Main.mainDictionary, oldWord.getWordTarget());
-            DictionaryManagement.addWords(Main.mainDictionary, wordTarget, wordExplain);
-            DictionaryManagement.dictionaryExportToFile(Main.mainDictionary, "dict2");
-
-            goBack(actionEvent);
+            DictionaryManagement.deleteWords(Main.mainDictionary, oldWord.getText());
+            DictionaryManagement.addWords(Main.mainDictionary,wordTarget.toLowerCase(), wordExplain);
             System.out.println("Edit Successfully");
-
+            DictionaryManagement.dictionaryExportToFile(Main.mainDictionary, "dict2");
+            goBack(actionEvent);
         }
     }
 
-    public void goBack (ActionEvent actionEvent) throws IOException {
+    public void goBack(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/MainScene.fxml"));

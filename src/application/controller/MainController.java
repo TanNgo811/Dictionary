@@ -6,6 +6,7 @@ import code.Word;
 import javazoom.jl.decoder.JavaLayerException;
 import tools.DictionarySearcher;
 import tools.TextToSpeechGoogle;
+import application.controller.EditController;
 
 import static application.Main.mainDictionary;
 
@@ -61,6 +62,10 @@ public class MainController implements Initializable {
 //    Dictionary mainDictionary = new Dictionary();
 //    DictionaryManagement management = new DictionaryManagement();
 
+    public MainController(){
+
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.initializeWordList();
@@ -70,7 +75,7 @@ public class MainController implements Initializable {
             String searchedWord = tfSearchedWord.getText();
             if (!searchedWord.trim().equals("")) {
                 System.out.println("Searched Word: " + searchedWord);
-                ArrayList<Word> searchList = DictionarySearcher.searcherForCommandline(searchedWord, mainDictionary.words);
+                ArrayList<Word> searchList = DictionarySearcher.searcherForCommandline(searchedWord.toLowerCase(), mainDictionary.words);
                 String wordMeaning = "";
                 String wordTarget = "";
                 try {
@@ -133,6 +138,7 @@ public class MainController implements Initializable {
                 System.out.println("Nothing to Delete!!!");
             }
             //TODO: export after delete word
+            DictionaryManagement.dictionaryExportToFile(mainDictionary, "dict2");
         });
     }
 
@@ -152,13 +158,29 @@ public class MainController implements Initializable {
         }
     }
 
+    public Word getWordEdit() {
+        Word editWord = new Word(lbWord.getText(), taMeaning.getText());
+        return editWord;
+    }
+//    public String getLabel() {
+//       return lbWord.getText();
+//
+//    }
+
+
     public void handleEdit(ActionEvent actionEvent) throws IOException{
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/EditWord.fxml"));
         Parent editViewParent = loader.load();
 //        editViewParent = FXMLLoader.load(getClass().getResource("EditWord.fxml"));
+        EditController editController = loader.getController();
+        editController.setWordEdit(getWordEdit());
+
         Scene scene = new Scene(editViewParent);
+//        EditController controller = new EditController();
+//        String selected = getLabel();
+//        controller.setWordEdit(selected);
         stage.setScene(scene);
     }
 
@@ -182,13 +204,9 @@ public class MainController implements Initializable {
         stage.setScene(scene);
     }
 
-    public void handleDelete(ActionEvent actionEvent) throws IOException{
-
-    }
-
     public void handleTextToSpeed(ActionEvent actionEvent)
     {
-        System.out.println(".......Playing");
+        System.out.println("Playing Text to Speech");
         String word =lbWord.getText();
 
         btnSound = (Button) actionEvent.getSource();

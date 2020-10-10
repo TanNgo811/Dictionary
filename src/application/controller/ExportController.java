@@ -30,6 +30,11 @@ public class ExportController {
         Parent mainParent = loader.load();
         Scene scene = new Scene(mainParent);
         stage.setScene(scene);
+
+    }
+
+    public void confirmExport(ActionEvent actionEvent) {
+
     }
 
 }

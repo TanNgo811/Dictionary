@@ -154,7 +154,7 @@ public class DictionaryManagement {
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
             for (Word i : testDictionary.words) {
-                bw.write(i.getWordTarget() + "    " + i.getWordExplain());
+                bw.write(i.getWordTarget() + "\t" + i.getWordExplain());
                 bw.newLine();
             }
 //            fileWriter.write("Files in Java might be tricky, but it is fun enough!");
@@ -166,12 +166,6 @@ public class DictionaryManagement {
             e.printStackTrace();
         }
     }
-
-    public static void dictionarySearcher(Dictionary testDictionary) {
-
-    }
-
-
 
 
 }

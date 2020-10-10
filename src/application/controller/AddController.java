@@ -55,6 +55,7 @@ public class AddController implements Initializable {
             System.out.println("Add Error!");
         } else {
             DictionaryManagement.addWords(mainDictionary, wordTarget, wordExplain);
+
             DictionaryManagement.dictionaryExportToFile(mainDictionary, "dict2");
 
             goBack(actionEvent);
