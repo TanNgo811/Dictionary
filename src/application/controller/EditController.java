@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static application.controller.NotiWindow.openAlertWindow;
+
 public class EditController implements Initializable{
 
     @FXML
@@ -66,10 +68,12 @@ public class EditController implements Initializable{
 
         if (wordTarget == null || wordExplain == null || wordTarget.equals("") || wordExplain.equals("")) {
             System.out.println("Edit Error!");
+            openAlertWindow("Edit Error!");
         } else {
             DictionaryManagement.deleteWords(Main.mainDictionary, oldWord.getText());
             DictionaryManagement.addWords(Main.mainDictionary,wordTarget.toLowerCase(), wordExplain);
-            System.out.println("Edit Successfully");
+            System.out.println("Edit Successfully!");
+            openAlertWindow("Edit " + oldWord + " Successfully!");
             DictionaryManagement.dictionaryExportToFile(Main.mainDictionary, "dict2");
             goBack(actionEvent);
         }

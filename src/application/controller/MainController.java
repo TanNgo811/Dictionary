@@ -9,6 +9,7 @@ import tools.TextToSpeechGoogle;
 import application.controller.EditController;
 
 import static application.Main.mainDictionary;
+import static application.controller.NotiWindow.openAlertWindow;
 
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
@@ -131,11 +132,13 @@ public class MainController implements Initializable {
                 DictionaryManagement.deleteWords(mainDictionary, word);
                 //TODO: make notification
                 System.out.println("Delete Worked!!!");
+                openAlertWindow("Delete " + word + " Successfully!");
                 updateWordList(mainDictionary.words);
                 lbWord.setText("");
                 taMeaning.clear();
             } else {
                 System.out.println("Nothing to Delete!!!");
+                openAlertWindow("Nothing to Delete!!!");
             }
             //TODO: export after delete word
             DictionaryManagement.dictionaryExportToFile(mainDictionary, "dict2");
