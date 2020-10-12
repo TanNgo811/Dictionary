@@ -13,25 +13,22 @@ public class DictionarySearcher {
 
         ArrayList<Word> result = new ArrayList<>();
 
-        for (int i = 0; i < words.size(); i++) {
-            if (words.get(i).getWordTarget().toLowerCase().contains(searchWord)) {
-                result.add(words.get(i));
+        for (Word word : words) {
+            if (word.getWordTarget().toLowerCase().contains(searchWord)) {
+                result.add(word);
             }
         }
 
         return result;
     }
 
-    public static Word searcherWord(String searchWord, ArrayList<Word> words) {
-        ArrayList<Word> result = new ArrayList<>();
-
-        for (int i = 0; i < words.size(); i++) {
-            if (words.get(i).getWordTarget().toLowerCase().contains(searchWord)) {
-                result.add(words.get(i));
+    public static Word exactSearcherWord(String searchWord, ArrayList<Word> words) {
+        for (Word i : words) {
+            if (i.getWordTarget().toLowerCase().equals(searchWord)) {
+                return i;
             }
         }
-
-        return result.get(0);
+        return new Word();
     }
 
 }
