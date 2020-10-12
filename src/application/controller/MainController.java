@@ -21,6 +21,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
+import tools.Translator;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -92,21 +94,27 @@ public class MainController implements Initializable {
                 System.out.println("Reset!!!");
                 initializeWordList();
             }
+            GoogleTranslate(searchedWord);
         });
 
         lvWords.setOnMouseClicked(event -> {
             String searchedWord = lvWords.getSelectionModel().getSelectedItem();
             if (!searchedWord.equals("")) {
-                System.out.println("Clicked Word: " + searchedWord);
-                String wordMeaning = new String();
-                for (Word i : mainDictionary.words){
-                    if (i.getWordTarget().equals(searchedWord)) {
-                        wordMeaning = i.getWordExplain();
-                        tfSearchedWord.setText(searchedWord);
+                try {
+                    System.out.println("Clicked Word: " + searchedWord);
+                    String wordMeaning = new String();
+                    for (Word i : mainDictionary.words){
+                        if (i.getWordTarget().equals(searchedWord)) {
+                            wordMeaning = i.getWordExplain();
+                            tfSearchedWord.setText(searchedWord);
+                        }
                     }
+                    lbWord.setText(searchedWord);
+                    taMeaning.setText(wordMeaning);
+                } catch (NullPointerException npe) {
+
                 }
-                lbWord.setText(searchedWord);
-                taMeaning.setText(wordMeaning);
+
             }
 
         });
@@ -165,10 +173,20 @@ public class MainController implements Initializable {
         Word editWord = new Word(lbWord.getText(), taMeaning.getText());
         return editWord;
     }
-//    public String getLabel() {
-//       return lbWord.getText();
-//
-//    }
+
+    public void GoogleTranslate(String text) {
+//        taMeaning.setText("Using Google Translate....");
+        String wordExplain = new String();
+        Translator translator = new Translator();
+        try {
+            lbWord.setText(text);
+            wordExplain = translator.translate("en", "vi", text);
+            taMeaning.setText(wordExplain + "\n" +"Using Google Translate....");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public void handleEdit(ActionEvent actionEvent) throws IOException{

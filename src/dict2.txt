@@ -2,8 +2,6 @@ accent	giọng
 accented	có dấu
 accenting	nhấn mạnh
 accentless	vô tình
-accentor	accentor
-accentors	accentors
 accents	dấu trọng âm
 accentuable	có giá trị
 accentual	có giọng
@@ -489,3 +487,5 @@ earthgrubber	người làm đất
 earth-homing	trái đất
 tan	ngo
 teeeeeeeeaaaaaaaaaaaaa	teeeeaaaaaaaa
+accentor	người đánh dấu
+accentors	những người đánh dấu
