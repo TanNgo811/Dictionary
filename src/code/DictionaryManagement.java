@@ -1,7 +1,7 @@
 package code;
 
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 
 public class DictionaryManagement {
 
@@ -167,5 +167,12 @@ public class DictionaryManagement {
         }
     }
 
-
+    public static void sortWords(Dictionary testDictionary) {
+        Collections.sort(testDictionary.words, new Comparator<Word>() {
+            @Override
+            public int compare(Word word1, Word word2) {
+                return word1.getWordTarget().compareTo(word2.getWordTarget());
+            }
+        });
+    }
 }

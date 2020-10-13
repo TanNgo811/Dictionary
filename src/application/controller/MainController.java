@@ -51,6 +51,9 @@ public class MainController implements Initializable {
     public Button btnSound;
 
     @FXML
+    public Button btnGTranslate;
+
+    @FXML
     public TextField tfSearchedWord;
 
     @FXML
@@ -71,76 +74,51 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.initializeWordList();
+        DictionaryManagement.insertFromFile(mainDictionary);
+        DictionaryManagement.sortWords(mainDictionary);
+        this.updateWordList(mainDictionary.words);
 
         btSearch.setOnMouseClicked(event -> {
-            System.out.println("Search!!!");
             String searchedWord = tfSearchedWord.getText();
-            if (!searchedWord.trim().equals("")) {
-                System.out.println("Searched Word: " + searchedWord);
-                ArrayList<Word> searchList = DictionarySearcher.searcherForCommandline(searchedWord.toLowerCase(), mainDictionary.words);
-                String wordMeaning = "";
-                String wordTarget = "";
-                try {
-                    updateWordList(searchList);
-                    wordMeaning = searchList.get(0).getWordExplain();
-                    wordTarget = searchList.get(0).getWordTarget();
-                } catch  (IndexOutOfBoundsException ibe) { //(NullPointerException npe)
+            System.out.println("Searched Word: " + searchedWord);
 
-                }
-                lbWord.setText(wordTarget);
-                taMeaning.setText(wordMeaning);
-            } else {
-                System.out.println("Reset!!!");
-                initializeWordList();
+            ArrayList<Word> searchList = DictionarySearcher.searchBeginningList(searchedWord.toLowerCase(), mainDictionary.words);
+            updateWordList(searchList);
+            try {
+                lbWord.setText(searchList.get(0).getWordTarget());
+                taMeaning.setText(searchList.get(0).getWordExplain());
+            } catch (IndexOutOfBoundsException ibe) {
+                GoogleTranslate(tfSearchedWord.getText());
             }
-            GoogleTranslate(searchedWord);
+
+            if (searchedWord.equals("")) {
+                lbWord.setText("");
+                taMeaning.clear();
+            }
         });
 
         lvWords.setOnMouseClicked(event -> {
             String searchedWord = lvWords.getSelectionModel().getSelectedItem();
-            if (!searchedWord.equals("")) {
-                try {
+            try {
+                if (!searchedWord.equals("")) {
                     System.out.println("Clicked Word: " + searchedWord);
-                    String wordMeaning = new String();
-                    for (Word i : mainDictionary.words){
-                        if (i.getWordTarget().equals(searchedWord)) {
-                            wordMeaning = i.getWordExplain();
-                            tfSearchedWord.setText(searchedWord);
-                        }
-                    }
+                    tfSearchedWord.setText(searchedWord);
+                    Word clickedWord = DictionarySearcher.exactSearcherWord(searchedWord, mainDictionary.words);
                     lbWord.setText(searchedWord);
-                    taMeaning.setText(wordMeaning);
-                } catch (NullPointerException npe) {
-
+                    taMeaning.setText(clickedWord.getWordExplain());
                 }
-
+            } catch (NullPointerException e) {
+                    System.out.println("Nothing Here!!!");
             }
 
         });
-
-//        btnEdit.setOnMouseClicked(event -> {
-//            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(getClass().getResource("EditWord.fxml"));
-//            Parent editViewParent = null;
-//            try {
-//                editViewParent = loader.load();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-////        Parent editViewParent = FXMLLoader.load(getClass().getResource("EditWord.fxml"));
-//            Scene scene = new Scene(editViewParent);
-//            stage.setScene(scene);
-//        });
 
         btnDelete.setOnMouseClicked(event ->{
             String word = lbWord.getText();
             if (!word.equals("")) {
                 DictionaryManagement.deleteWords(mainDictionary, word);
-                //TODO: make notification
                 System.out.println("Delete Worked!!!");
-                openAlertWindow("Delete " + word + " Successfully!");
+                openAlertWindow("Delete \"" + word + " \"Successfully!");
                 updateWordList(mainDictionary.words);
                 lbWord.setText("");
                 taMeaning.clear();
@@ -148,18 +126,12 @@ public class MainController implements Initializable {
                 System.out.println("Nothing to Delete!!!");
                 openAlertWindow("Nothing to Delete!!!");
             }
-            //TODO: export after delete word
             DictionaryManagement.dictionaryExportToFile(mainDictionary, "dict2");
         });
-    }
 
-    public void initializeWordList() {
-        mainDictionary.words.clear();
-        DictionaryManagement.insertFromFile(mainDictionary);
-        lvWords.getItems().clear();
-        for (Word i : mainDictionary.words){
-            lvWords.getItems().add(i.getWordTarget());
-        }
+        btnGTranslate.setOnMouseClicked(event -> {
+            GoogleTranslate(lbWord.getText());
+        });
     }
 
     public void updateWordList(ArrayList<Word> updatedArray) {
@@ -170,19 +142,16 @@ public class MainController implements Initializable {
     }
 
     public Word getWordEdit() {
-        Word editWord = new Word(lbWord.getText(), taMeaning.getText());
-        return editWord;
+        return new Word(lbWord.getText(), taMeaning.getText());
     }
 
     public void GoogleTranslate(String text) {
-//        taMeaning.setText("Using Google Translate....");
-        String wordExplain = new String();
-        Translator translator = new Translator();
+        String wordExplain;
         try {
             lbWord.setText(text);
-            wordExplain = translator.translate("en", "vi", text);
-            taMeaning.setText(wordExplain + "\n" +"Using Google Translate....");
-
+            wordExplain = Translator.translate("en", "vi", text);
+            taMeaning.setText(wordExplain + "\nSearch using Google Translate...." );
+            System.out.println("Search using Google Translate....");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -233,9 +202,7 @@ public class MainController implements Initializable {
         btnSound = (Button) actionEvent.getSource();
         String targetLang = btnSound.getId();
 
-        Thread playAudioThread = new Thread(() -> {
-            PLayTextToSpeechAudio(word, targetLang);
-        });
+        Thread playAudioThread = new Thread(() -> PLayTextToSpeechAudio(word, targetLang));
         playAudioThread.start();
 
     }

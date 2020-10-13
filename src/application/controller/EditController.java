@@ -1,10 +1,8 @@
 package application.controller;
 
 import application.Main;
-import code.Dictionary;
 import code.DictionaryManagement;
 import code.Word;
-import application.controller.MainController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,15 +38,12 @@ public class EditController implements Initializable{
     @FXML
     public Label oldWord;
 
-
-
     MainController application = new MainController();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-
 
     public EditController() {
 
@@ -60,7 +55,6 @@ public class EditController implements Initializable{
         oldWord.setText(edit.getWordTarget());
     }
 
-
     public void handleConfirmBtn(ActionEvent actionEvent) throws IOException {
 
         String wordTarget = taEnglish.getText();
@@ -71,9 +65,10 @@ public class EditController implements Initializable{
             openAlertWindow("Edit Error!");
         } else {
             DictionaryManagement.deleteWords(Main.mainDictionary, oldWord.getText());
-            DictionaryManagement.addWords(Main.mainDictionary,wordTarget.toLowerCase(), wordExplain);
+            DictionaryManagement.addWords(Main.mainDictionary, wordTarget.toLowerCase(), wordExplain);
+            DictionaryManagement.sortWords(Main.mainDictionary);
             System.out.println("Edit Successfully!");
-            openAlertWindow("Edit " + oldWord + " Successfully!");
+            openAlertWindow("Edit " + oldWord.getText() + " Successfully!");
             DictionaryManagement.dictionaryExportToFile(Main.mainDictionary, "dict2");
             goBack(actionEvent);
         }

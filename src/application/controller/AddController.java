@@ -60,7 +60,7 @@ public class AddController implements Initializable {
             openAlertWindow("Add Error!");
         } else {
             DictionaryManagement.addWords(mainDictionary, wordTarget, wordExplain);
-
+            DictionaryManagement.sortWords(mainDictionary);
             DictionaryManagement.dictionaryExportToFile(mainDictionary, "dict2");
 
             goBack(actionEvent);
