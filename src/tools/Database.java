@@ -1,5 +1,6 @@
 package tools;
 
+import code.Dictionary;
 import code.Word;
 
 import java.io.File;
@@ -18,6 +19,34 @@ public class Database {
     private static ResultSet resultSet = null;
     private static String url = "jdbc:mysql://localhost:3307/mysql";
     private static String user = "root", pass = "";
+
+    public static void insertFromDatabase(Dictionary dictionary) {
+        try {
+            // This will load the MySQL driver, each DB has its own driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Setup the connection with the DB
+            connect = DriverManager.getConnection(url, user, pass);
+
+            // Statements allow to issue SQL queries to the database
+            statement = connect.createStatement();
+            // Result set get the result of the SQL query
+            resultSet = statement.executeQuery("select * from entries.entries;");
+
+            while (resultSet.next()) {
+                String word = resultSet.getString("word");
+                String wordtype = resultSet.getString("wordtype");
+                String explain = resultSet.getString("definition");
+                Word newWord = new Word();
+                newWord.setWordTarget(word);
+                newWord.setWordExplain(wordtype + "\n" + explain);
+                dictionary.words.add(newWord);
+            }
+        } catch (Exception e) {
+
+        } finally {
+            close();
+        }
+    }
 
     public static void readDataBase() {
         try {

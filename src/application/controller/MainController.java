@@ -10,6 +10,7 @@ import application.controller.EditController;
 
 import static application.Main.mainDictionary;
 import static application.controller.NotiWindow.openAlertWindow;
+import static tools.Database.insertFromDatabase;
 
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
@@ -75,8 +76,28 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         DictionaryManagement.insertFromFile(mainDictionary);
+//        insertFromDatabase(mainDictionary);
         DictionaryManagement.sortWords(mainDictionary);
         this.updateWordList(mainDictionary.words);
+
+        tfSearchedWord.setOnKeyTyped(event -> {
+            String searchedWord = tfSearchedWord.getText();
+            System.out.println("Searched Word: " + searchedWord);
+
+            ArrayList<Word> searchList = DictionarySearcher.searchBeginningList(searchedWord.toLowerCase(), mainDictionary.words);
+            updateWordList(searchList);
+            try {
+                lbWord.setText(searchList.get(0).getWordTarget());
+                taMeaning.setText(searchList.get(0).getWordExplain());
+            } catch (IndexOutOfBoundsException ibe) {
+                GoogleTranslate(tfSearchedWord.getText());
+            }
+
+            if (searchedWord.equals("")) {
+                lbWord.setText("");
+                taMeaning.clear();
+            }
+        });
 
         btSearch.setOnMouseClicked(event -> {
             String searchedWord = tfSearchedWord.getText();
@@ -100,7 +121,7 @@ public class MainController implements Initializable {
         lvWords.setOnMouseClicked(event -> {
             String searchedWord = lvWords.getSelectionModel().getSelectedItem();
             try {
-                if (!searchedWord.equals("")) {
+                if (!searchedWord.equals("")||searchedWord != null) {
                     System.out.println("Clicked Word: " + searchedWord);
                     tfSearchedWord.setText(searchedWord);
                     Word clickedWord = DictionarySearcher.exactSearcherWord(searchedWord, mainDictionary.words);

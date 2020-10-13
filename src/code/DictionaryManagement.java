@@ -40,18 +40,27 @@ public class DictionaryManagement {
         String vietnamese = new String();
         Word newWord;
         try {
-            File dictionaryFile = new File(".\\src\\dict2.txt");
+            File dictionaryFile = new File(".\\src\\dictionaries.txt");
             Scanner sc = new Scanner(dictionaryFile);
 
             while (sc.hasNextLine()){
                 String line = sc.nextLine();
-                String[] arrOfStr = line.split("\t", 2);
-                english = arrOfStr[0];
-                vietnamese = arrOfStr[1];
+//                String[] arrOfStr = line.split("\t", 2);
+//                english = arrOfStr[0];
+//                vietnamese = arrOfStr[1];
+                String eng = "", vie = "";
+                int i = 0;
+                for (i = 0; line.charAt(i) != '|'; i++) {
+                    eng = eng + line.charAt(i);
+                }
+                int index = i + 1;
+                for (i = index; line.charAt(i) != '|'; i++) {
+                    vie = vie + line.charAt(i);
+                }
                 newWord = new Word();
                 try{
-                    newWord.setWordTarget(english);
-                    newWord.setWordExplain(vietnamese);
+                    newWord.setWordTarget(eng);
+                    newWord.setWordExplain(vie);
                     testDictionary.words.add(newWord);
                 } catch (NullPointerException npe){
 
@@ -154,7 +163,8 @@ public class DictionaryManagement {
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
             for (Word i : testDictionary.words) {
-                bw.write(i.getWordTarget() + "\t" + i.getWordExplain());
+//                bw.write(i.getWordTarget() + "\t" + i.getWordExplain());
+                bw.write(i.getWordTarget() + "|" + i.getWordExplain());
                 bw.newLine();
             }
 //            fileWriter.write("Files in Java might be tricky, but it is fun enough!");
