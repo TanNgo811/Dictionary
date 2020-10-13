@@ -51,6 +51,9 @@ public class MainController implements Initializable {
     public Button btnSound;
 
     @FXML
+    public Button btnGTranslate;
+
+    @FXML
     public TextField tfSearchedWord;
 
     @FXML
@@ -72,12 +75,14 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         DictionaryManagement.insertFromFile(mainDictionary);
+        DictionaryManagement.sortWords(mainDictionary);
         this.updateWordList(mainDictionary.words);
 
         btSearch.setOnMouseClicked(event -> {
             String searchedWord = tfSearchedWord.getText();
             System.out.println("Searched Word: " + searchedWord);
-            ArrayList<Word> searchList = DictionarySearcher.searcherForCommandline(searchedWord.toLowerCase(), mainDictionary.words);
+
+            ArrayList<Word> searchList = DictionarySearcher.searchBeginningList(searchedWord.toLowerCase(), mainDictionary.words);
             updateWordList(searchList);
             try {
                 lbWord.setText(searchList.get(0).getWordTarget());
@@ -85,16 +90,27 @@ public class MainController implements Initializable {
             } catch (IndexOutOfBoundsException ibe) {
                 GoogleTranslate(tfSearchedWord.getText());
             }
+
+            if (searchedWord.equals("")) {
+                lbWord.setText("");
+                taMeaning.clear();
+            }
         });
 
         lvWords.setOnMouseClicked(event -> {
+            String searchedWord = lvWords.getSelectionModel().getSelectedItem();
             try {
-                int i = lvWords.getSelectionModel().getSelectedIndex();
-                lbWord.setText(mainDictionary.words.get(i).getWordTarget());
-                taMeaning.setText(mainDictionary.words.get(i).getWordExplain());
-            } catch (IndexOutOfBoundsException ibe) {
-                System.out.println("Nothing Here!!!");
+                if (!searchedWord.equals("")) {
+                    System.out.println("Clicked Word: " + searchedWord);
+                    tfSearchedWord.setText(searchedWord);
+                    Word clickedWord = DictionarySearcher.exactSearcherWord(searchedWord, mainDictionary.words);
+                    lbWord.setText(searchedWord);
+                    taMeaning.setText(clickedWord.getWordExplain());
+                }
+            } catch (NullPointerException e) {
+                    System.out.println("Nothing Here!!!");
             }
+
         });
 
         btnDelete.setOnMouseClicked(event ->{
@@ -111,6 +127,10 @@ public class MainController implements Initializable {
                 openAlertWindow("Nothing to Delete!!!");
             }
             DictionaryManagement.dictionaryExportToFile(mainDictionary, "dict2");
+        });
+
+        btnGTranslate.setOnMouseClicked(event -> {
+            GoogleTranslate(lbWord.getText());
         });
     }
 
@@ -130,7 +150,7 @@ public class MainController implements Initializable {
         try {
             lbWord.setText(text);
             wordExplain = Translator.translate("en", "vi", text);
-            taMeaning.setText(wordExplain);
+            taMeaning.setText(wordExplain + "\nSearch using Google Translate...." );
             System.out.println("Search using Google Translate....");
         } catch (IOException e) {
             e.printStackTrace();
