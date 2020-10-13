@@ -66,6 +66,7 @@ public class EditController implements Initializable{
         } else {
             DictionaryManagement.deleteWords(Main.mainDictionary, oldWord.getText());
             DictionaryManagement.addWords(Main.mainDictionary, wordTarget.toLowerCase(), wordExplain);
+            DictionaryManagement.sortWords(Main.mainDictionary);
             System.out.println("Edit Successfully!");
             openAlertWindow("Edit " + oldWord.getText() + " Successfully!");
             DictionaryManagement.dictionaryExportToFile(Main.mainDictionary, "dict2");
