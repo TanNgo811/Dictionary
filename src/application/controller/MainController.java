@@ -3,6 +3,8 @@ package application.controller;
 import code.Dictionary;
 import code.DictionaryManagement;
 import code.Word;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javazoom.jl.decoder.JavaLayerException;
 import tools.DictionarySearcher;
 import tools.TextToSpeechGoogle;
@@ -20,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
 
 import javafx.event.ActionEvent;
 import tools.Translator;
@@ -66,6 +69,11 @@ public class MainController implements Initializable {
     @FXML
     public Label lbWord;
 
+    @FXML
+    public ImageView imgSearch;
+
+    @FXML
+    public ImageView imgSound;
 //    Dictionary mainDictionary = new Dictionary();
 //    DictionaryManagement management = new DictionaryManagement();
 
@@ -99,7 +107,7 @@ public class MainController implements Initializable {
             }
         });
 
-        btSearch.setOnMouseClicked(event -> {
+        imgSearch.setOnMouseClicked(event -> {
             String searchedWord = tfSearchedWord.getText();
             System.out.println("Searched Word: " + searchedWord);
 
@@ -155,6 +163,7 @@ public class MainController implements Initializable {
         });
     }
 
+
     public void updateWordList(ArrayList<Word> updatedArray) {
         lvWords.getItems().clear();
         for (Word i : updatedArray){
@@ -178,6 +187,24 @@ public class MainController implements Initializable {
         }
     }
 
+    public void handleSearch(ActionEvent actionEvent) {
+        String searchedWord = tfSearchedWord.getText();
+        System.out.println("Searched Word: " + searchedWord);
+
+        ArrayList<Word> searchList = DictionarySearcher.searchBeginningList(searchedWord.toLowerCase(), mainDictionary.words);
+        updateWordList(searchList);
+        try {
+            lbWord.setText(searchList.get(0).getWordTarget());
+            taMeaning.setText(searchList.get(0).getWordExplain());
+        } catch (IndexOutOfBoundsException ibe) {
+            GoogleTranslate(tfSearchedWord.getText());
+        }
+
+        if (searchedWord.equals("")) {
+            lbWord.setText("");
+            taMeaning.clear();
+        }
+    }
 
     public void handleEdit(ActionEvent actionEvent) throws IOException{
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();

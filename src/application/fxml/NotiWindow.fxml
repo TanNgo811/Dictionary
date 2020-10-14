@@ -2,14 +2,16 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Text fx:id="messageText" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="Message" textAlignment="CENTER" wrappingWidth="300.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="180.0" layoutX="11.0" layoutY="11.0" stroke="#e16e80" strokeType="INSIDE" width="280.0" />
+        <Text fx:id="messageText" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="Message" textAlignment="CENTER" wrappingWidth="300.0">
          <font>
-            <Font name="System Italic" size="18.0" />
+            <Font name="Times New Roman" size="18.0" />
          </font></Text>
-        <Button fx:id="cancelButton" layoutX="115.0" layoutY="102.0" maxWidth="70.0" minWidth="70.0" mnemonicParsing="false" onAction="#handleButton" text="OK" textAlignment="CENTER" />
+        <Button fx:id="cancelButton" layoutX="115.0" layoutY="149.0" maxWidth="70.0" minWidth="70.0" mnemonicParsing="false" onAction="#handleButton" style="-fx-background-color: none; -fx-border-color: #e16e80; -fx-border-radius: 20px;" text="OK" textAlignment="CENTER" textFill="#e16e80" />
     </children>
 </AnchorPane>

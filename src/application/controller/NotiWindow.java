@@ -42,7 +42,7 @@ public class NotiWindow {
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setTitle("Notification");
-        stage.setScene(new Scene(root, 300, 150));
+        stage.setScene(new Scene(root, 300, 200));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.showAndWait();
