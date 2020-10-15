@@ -75,28 +75,20 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        mainDictionary.words.clear();
         DictionaryManagement.insertFromFile(mainDictionary);
 //        insertFromDatabase(mainDictionary);
         DictionaryManagement.sortWords(mainDictionary);
         this.updateWordList(mainDictionary.words);
 
+        taMeaning.setWrapText(true);
+        taMeaning.setEditable(false);
+
         tfSearchedWord.setOnKeyTyped(event -> {
             String searchedWord = tfSearchedWord.getText();
-            System.out.println("Searched Word: " + searchedWord);
-
             ArrayList<Word> searchList = DictionarySearcher.searchBeginningList(searchedWord.toLowerCase(), mainDictionary.words);
             updateWordList(searchList);
-            try {
-                lbWord.setText(searchList.get(0).getWordTarget());
-                taMeaning.setText(searchList.get(0).getWordExplain());
-            } catch (IndexOutOfBoundsException ibe) {
-                GoogleTranslate(tfSearchedWord.getText());
-            }
 
-            if (searchedWord.equals("")) {
-                lbWord.setText("");
-                taMeaning.clear();
-            }
         });
 
         btSearch.setOnMouseClicked(event -> {
