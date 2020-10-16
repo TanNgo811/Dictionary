@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
     public static Dictionary mainDictionary = new Dictionary();
@@ -15,6 +16,7 @@ public class Main extends Application {
 //        window = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("fxml/MainScene.fxml"));
         primaryStage.setTitle("Dictionary");
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setScene(new Scene(root, 900, 600));
         primaryStage.show();
     }
