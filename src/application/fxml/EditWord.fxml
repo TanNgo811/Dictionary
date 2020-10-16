@@ -1,41 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.EditController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.EditController">
     <children>
-        <Label layoutX="14.0" layoutY="15.0" prefHeight="42.0" prefWidth="185.0" text="EDIT WORD" textAlignment="CENTER" textOverrun="CLIP">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff7d4" height="600.0" stroke="BLACK" strokeType="INSIDE" width="900.0" />
+        <Label layoutX="129.0" layoutY="51.0" prefHeight="42.0" prefWidth="185.0" text="EDIT WORD" textAlignment="CENTER" textOverrun="CLIP">
             <font>
-                <Font name="System Bold" size="20.0" />
+                <Font name="Times New Roman" size="20.0" />
             </font>
         </Label>
-        <Button fx:id="btnCancel" layoutX="452.0" layoutY="24.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="134.0" text="Cancel" />
-        <Button fx:id="btnConfirm" layoutX="304.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleConfirmBtn" prefHeight="25.0" prefWidth="134.0" text="Confirm" />
-        <AnchorPane layoutX="14.0" layoutY="66.0" prefHeight="320.0" prefWidth="282.0" style="-fx-background-color: orange;">
-            <children>
-                <Label layoutX="116.0" layoutY="14.0" prefHeight="42.0" prefWidth="51.0" text="ENGLISH" textAlignment="CENTER" textOverrun="CLIP">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Label>
-                <TextArea fx:id="taEnglish" layoutX="14.0" layoutY="69.0" prefHeight="237.0" prefWidth="255.0" />
-            </children></AnchorPane>
-        <AnchorPane layoutX="304.0" layoutY="66.0" prefHeight="320.0" prefWidth="282.0" style="-fx-background-color: e0e0e0;">
-            <children>
-                <Label layoutX="103.0" layoutY="14.0" prefHeight="42.0" prefWidth="78.0" text="VIETNAMESE" textAlignment="CENTER" textOverrun="CLIP">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Label>
-                <TextArea fx:id="taVietnamese" layoutX="14.0" layoutY="69.0" prefHeight="237.0" prefWidth="255.0" />
-            </children></AnchorPane>
-      <Label fx:id="oldWord" layoutX="147.0" layoutY="20.0" prefHeight="17.0" prefWidth="104.0" text="Label">
+        <Button fx:id="btnCancel" layoutX="726.0" layoutY="542.0" mnemonicParsing="false" onAction="#goBack" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: none; -fx-border-color: #e16e80; -fx-border-radius: 20px;" text="Cancel" textFill="#e16e80">
          <font>
-            <Font name="System Italic" size="21.0" />
+            <Font size="14.0" />
+         </font>
+        </Button>
+        <Button fx:id="btnConfirm" layoutX="578.0" layoutY="541.0" mnemonicParsing="false" onAction="#handleConfirmBtn" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: #e16e80; -fx-background-radius: 20px;" text="Confirm" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+        </Button>
+        <AnchorPane layoutX="129.0" layoutY="131.0" prefHeight="359.0" prefWidth="339.0" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: #e16e80;">
+            <children>
+                <Label layoutX="137.0" layoutY="14.0" prefHeight="42.0" prefWidth="60.0" text="English" textAlignment="CENTER" textOverrun="CLIP">
+                    <font>
+                        <Font name="Times New Roman Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextArea fx:id="taEnglish" layoutX="14.0" layoutY="65.0" prefHeight="255.0" prefWidth="306.0" style="-fx-background-color: none; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: none;" />
+            <Line endX="100.0" layoutX="224.0" layoutY="67.0" startX="-210.0" stroke="#e16e80" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="521.0" layoutY="131.0" prefHeight="359.0" prefWidth="339.0" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-border-color: #e16e80; -fx-border-radius: 20px;">
+            <children>
+                <Label layoutX="131.0" layoutY="14.0" prefHeight="42.0" prefWidth="78.0" text="Vietnamese" textAlignment="CENTER" textOverrun="CLIP">
+                    <font>
+                        <Font name="Times New Roman Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextArea fx:id="taVietnamese" layoutX="17.0" layoutY="69.0" prefHeight="255.0" prefWidth="306.0" style="-fx-background-color: white;" />
+            <Line endX="100.0" layoutX="222.0" layoutY="69.0" startX="-205.0" stroke="#e16e80" />
+            </children>
+        </AnchorPane>
+      <Label fx:id="oldWord" layoutX="254.0" layoutY="53.0" prefHeight="17.0" prefWidth="104.0" text="Label">
+         <font>
+            <Font name="Times New Roman Bold" size="32.0" />
          </font>
       </Label>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a4878" height="600.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="77.0" />
+    <ImageView fitHeight="45.0" fitWidth="50.0" layoutX="16.0" layoutY="49.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../../img/logo.png" />
+        </image>
+    </ImageView>
     </children>
 
 </AnchorPane>
