@@ -36,8 +36,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MainController implements Initializable {
-    @FXML
-    public Button btSearch;
 
     @FXML
     public Button btnEdit;
@@ -74,6 +72,10 @@ public class MainController implements Initializable {
 
     @FXML
     public ImageView imgSound;
+
+    @FXML
+    public Button btnExit;
+
 //    Dictionary mainDictionary = new Dictionary();
 //    DictionaryManagement management = new DictionaryManagement();
 
@@ -81,30 +83,25 @@ public class MainController implements Initializable {
 
     }
 
+    final String HOVERED_BUTTON_STYLE = "-fx-background-color: #858585";//-fx-outer-border, -fx-inner-border, -fx-body-color;
+    final String IDLE_BUTTON_STYLE = "-fx-background-color: transparent;";
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        mainDictionary.words.clear();
         DictionaryManagement.insertFromFile(mainDictionary);
 //        insertFromDatabase(mainDictionary);
         DictionaryManagement.sortWords(mainDictionary);
         this.updateWordList(mainDictionary.words);
 
+        taMeaning.setWrapText(true);
+        taMeaning.setEditable(false);
+
         tfSearchedWord.setOnKeyTyped(event -> {
             String searchedWord = tfSearchedWord.getText();
-            System.out.println("Searched Word: " + searchedWord);
-
             ArrayList<Word> searchList = DictionarySearcher.searchBeginningList(searchedWord.toLowerCase(), mainDictionary.words);
             updateWordList(searchList);
-            try {
-                lbWord.setText(searchList.get(0).getWordTarget());
-                taMeaning.setText(searchList.get(0).getWordExplain());
-            } catch (IndexOutOfBoundsException ibe) {
-                GoogleTranslate(tfSearchedWord.getText());
-            }
 
-            if (searchedWord.equals("")) {
-                lbWord.setText("");
-                taMeaning.clear();
-            }
         });
 
         imgSearch.setOnMouseClicked(event -> {
@@ -160,6 +157,17 @@ public class MainController implements Initializable {
 
         btnGTranslate.setOnMouseClicked(event -> {
             GoogleTranslate(lbWord.getText());
+        });
+
+        setStyleOnHover(btnAdd);
+        setStyleOnHover(btnDelete);
+        setStyleOnHover(btnExport);
+        setStyleOnHover(btnEdit);
+        setStyleOnHover(btnExit);
+
+        btnExit.setOnMouseClicked(event -> {
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.close();
         });
     }
 
@@ -253,6 +261,11 @@ public class MainController implements Initializable {
         Thread playAudioThread = new Thread(() -> PLayTextToSpeechAudio(word, targetLang));
         playAudioThread.start();
 
+    }
+
+    public void setStyleOnHover(Button btn){
+        btn.setOnMouseEntered(e -> {btn.setStyle(HOVERED_BUTTON_STYLE);});
+        btn.setOnMouseExited(e -> {btn.setStyle(IDLE_BUTTON_STYLE);});
     }
 
     public void PLayTextToSpeechAudio(String word, String language) {
