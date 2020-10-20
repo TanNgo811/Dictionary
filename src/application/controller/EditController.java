@@ -42,8 +42,6 @@ public class EditController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        taEnglish.setWrapText(true);
-        taVietnamese.setWrapText(true);
     }
 
     public EditController() {
