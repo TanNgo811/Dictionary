@@ -36,27 +36,20 @@ public class DictionaryManagement {
      * insertFromFile Function.
      */
     public static void insertFromFile(Dictionary testDictionary) {
-        String english = new String();
-        String vietnamese = new String();
         Word newWord;
         try {
-            File dictionaryFile = new File(".\\src\\English-Vietnamese.txt");
+            File dictionaryFile = new File(".\\src\\dictionaries.txt");
             Scanner sc = new Scanner(dictionaryFile);
 
             while (sc.hasNextLine()){
                 String line = sc.nextLine();
-                String[] arrOfStr = line.split("\t", 2);
+                String english = "";
+                String vietnamese = "";
+                String[] arrOfStr = line.split("\\|");
                 english = arrOfStr[0];
-                vietnamese = arrOfStr[1];
-//                String eng = "", vie = "";
-//                int i = 0;
-//                for (i = 0; line.charAt(i) != '|'; i++) {
-//                    eng = eng + line.charAt(i);
-//                }
-//                int index = i + 1;
-//                for (i = index; line.charAt(i) != '|'; i++) {
-//                    vie = vie + line.charAt(i);
-//                }
+                for (int i = 1; i < arrOfStr.length - 1; i++) {
+                    vietnamese += arrOfStr[i] + '\n';
+                }
                 newWord = new Word();
                 try{
                     newWord.setWordTarget(english);
@@ -178,7 +171,7 @@ public class DictionaryManagement {
     }
 
     public static void sortWords(Dictionary testDictionary) {
-        Collections.sort(testDictionary.words, new Comparator<Word>() {
+        testDictionary.words.sort(new Comparator<Word>() {
             @Override
             public int compare(Word word1, Word word2) {
                 return word1.getWordTarget().compareTo(word2.getWordTarget());
