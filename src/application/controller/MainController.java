@@ -89,8 +89,8 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mainDictionary.words.clear();
-        DictionaryManagement.insertFromFile(mainDictionary);
-//        insertFromDatabase(mainDictionary);
+//        DictionaryManagement.insertFromFile(mainDictionary);
+        insertFromDatabase(mainDictionary);
         DictionaryManagement.sortWords(mainDictionary);
         this.updateWordList(mainDictionary.words);
 

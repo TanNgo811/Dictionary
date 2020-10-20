@@ -61,7 +61,7 @@ public class AddController implements Initializable {
         } else {
             DictionaryManagement.addWords(mainDictionary, wordTarget, wordExplain);
             DictionaryManagement.sortWords(mainDictionary);
-            DictionaryManagement.dictionaryExportToFile(mainDictionary, "dict2");
+            DictionaryManagement.dictionaryExportToFile(mainDictionary, "English-Vietnamese");
 
             goBack(actionEvent);
             System.out.println("Add Successfully!");

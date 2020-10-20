@@ -30,12 +30,12 @@ public class Database {
             // Statements allow to issue SQL queries to the database
             statement = connect.createStatement();
             // Result set get the result of the SQL query
-            resultSet = statement.executeQuery("select * from entries.entries;");
+            resultSet = statement.executeQuery("select * from eng_vie.av;");
 
             while (resultSet.next()) {
                 String word = resultSet.getString("word");
-                String wordtype = resultSet.getString("wordtype");
-                String explain = resultSet.getString("definition");
+                String wordtype = resultSet.getString("pronounce");
+                String explain = resultSet.getString("description");
                 Word newWord = new Word();
                 newWord.setWordTarget(word);
                 newWord.setWordExplain(wordtype + "\n" + explain);
@@ -58,7 +58,7 @@ public class Database {
             // Statements allow to issue SQL queries to the database
             statement = connect.createStatement();
             // Result set get the result of the SQL query
-            resultSet = statement.executeQuery("select * from entries.entries limit 10;");
+            resultSet = statement.executeQuery("select * from eng_vie.av limit 10;");
             writeResultSet(resultSet);
         } catch (Exception e) {
 
@@ -178,10 +178,10 @@ public class Database {
     }
 
     public static void main(String[] args) throws Exception {
-        Word newWord = new Word();
-        newWord.setWordTarget("asdefgh");
-        newWord.setWordExplain("dc pls du me");
-        addIntoDatabase(newWord);
+//        Word newWord = new Word();
+//        newWord.setWordTarget("asdefgh");
+//        newWord.setWordExplain("dc pls du me");
+//        addIntoDatabase(newWord);
 
 //        deleteFromDatabase(newWord.getWordTarget());
 //        Class.forName("com.mysql.jdbc.Driver");

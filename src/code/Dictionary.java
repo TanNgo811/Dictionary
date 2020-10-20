@@ -26,8 +26,9 @@ public class Dictionary {
 //            System.out.println(i.getWordTarget());
 //        }
 
-//        String line = "4th|Thứ 4|ADJ;thứ tư;|wednesday, fourth, wed, 4th;";
-        /*String eng = "", vie = "";
+//        String line = "a.d.|/'ei'di:/ ^p  (viết tắt) của Ano Domin \n\t- sau công nguyên\n\t\t=1540 a.d.+ năm 1540 sau công nguyên|;;|;";
+        String line = "tanngo|That's My Name";
+        String eng = "", vie = "";
         int i = 0;
         for (i = 0; line.charAt(i) != '|'; i++) {
             eng = eng + line.charAt(i);
@@ -37,7 +38,7 @@ public class Dictionary {
             vie = vie + line.charAt(i);
         }
         System.out.println(eng);
-        System.out.println(vie);*/
+        System.out.println(vie);
         /*String[] arrOfStr = line.split("\\s*[a-zA-Z]+|");
         String english = "", vietnamese = "";
         english = arrOfStr[0];

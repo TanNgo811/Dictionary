@@ -69,7 +69,7 @@ public class EditController implements Initializable{
             DictionaryManagement.sortWords(Main.mainDictionary);
             System.out.println("Edit Successfully!");
             openAlertWindow("Edit " + oldWord.getText() + " Successfully!");
-            DictionaryManagement.dictionaryExportToFile(Main.mainDictionary, "dict2");
+            DictionaryManagement.dictionaryExportToFile(Main.mainDictionary, "English-Vietnamese");
             goBack(actionEvent);
         }
     }
