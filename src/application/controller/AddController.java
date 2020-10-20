@@ -39,7 +39,8 @@ public class AddController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        taEnglish.setWrapText(true);
+        taVietnamese.setWrapText(true);
     }
 
     public void goBack (ActionEvent actionEvent) throws IOException {
