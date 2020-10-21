@@ -76,6 +76,12 @@ public class MainController implements Initializable {
     @FXML
     public Button btnExit;
 
+    @FXML
+    public Button btnMinimize;
+
+    @FXML
+    public Button btnAbout;
+
 //    Dictionary mainDictionary = new Dictionary();
 //    DictionaryManagement management = new DictionaryManagement();
 
@@ -83,11 +89,14 @@ public class MainController implements Initializable {
 
     }
 
-    final String HOVERED_BUTTON_STYLE = "-fx-background-color: #858585";//-fx-outer-border, -fx-inner-border, -fx-body-color;
+    final String HOVERED_BUTTON_STYLE = "-fx-background-color: #858585";
     final String IDLE_BUTTON_STYLE = "-fx-background-color: transparent;";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        lbWord.setText("OpenSource E-V Dictionary");
+        taMeaning.setText("Main developer: NGO TIEN TAN \nWord & translation source from Oxford Basic Dictionary & Google Translate Source");
+
         mainDictionary.words.clear();
         DictionaryManagement.insertFromFile(mainDictionary);
 //        insertFromDatabase(mainDictionary);
@@ -164,6 +173,7 @@ public class MainController implements Initializable {
         setStyleOnHover(btnExport);
         setStyleOnHover(btnEdit);
         setStyleOnHover(btnExit);
+        setStyleOnHover(btnMinimize);
 
         btnExit.setOnMouseClicked(event -> {
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();

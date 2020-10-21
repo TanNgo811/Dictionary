@@ -34,7 +34,7 @@
                         <Font name="Times New Roman Bold" size="16.0" />
                     </font>
                 </Label>
-                <TextArea fx:id="taEnglish" layoutX="14.0" layoutY="65.0" prefHeight="255.0" prefWidth="306.0" style="-fx-background-color: none; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: none;" />
+                <TextArea fx:id="taEnglish" layoutX="14.0" layoutY="65.0" prefHeight="255.0" prefWidth="306.0" style="-fx-background-color: none; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: none;" wrapText="true" />
                 <Line endX="100.0" layoutX="224.0" layoutY="67.0" startX="-210.0" stroke="#ff0800" strokeWidth="1.5" />
             </children>
         </AnchorPane>
@@ -45,7 +45,7 @@
                         <Font name="Times New Roman Bold" size="16.0" />
                     </font>
                 </Label>
-                <TextArea fx:id="taVietnamese" layoutX="17.0" layoutY="69.0" prefHeight="255.0" prefWidth="306.0" style="-fx-background-color: white;" />
+                <TextArea fx:id="taVietnamese" layoutX="17.0" layoutY="69.0" prefHeight="255.0" prefWidth="306.0" style="-fx-background-color: white;" wrapText="true" />
                 <Line endX="100.0" layoutX="222.0" layoutY="69.0" startX="-205.0" stroke="#ff0800" strokeWidth="1.5" />
             </children>
         </AnchorPane>

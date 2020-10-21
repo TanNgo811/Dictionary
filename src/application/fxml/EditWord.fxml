@@ -11,7 +11,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#403f40" height="600.0" stroke="BLACK" strokeType="INSIDE" width="900.0" />
         <Label layoutX="129.0" layoutY="51.0" prefHeight="42.0" prefWidth="185.0" text="EDIT WORD" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
             <font>
-                <Font name="Times New Roman" size="20.0" />
+                <Font name="System Bold" size="20.0" />
             </font>
         </Label>
         <Button fx:id="btnCancel" layoutX="726.0" layoutY="542.0" mnemonicParsing="false" onAction="#goBack" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: none; -fx-border-color: #ff0800; -fx-border-radius: 20px;" text="Cancel" textFill="#ff0800">
@@ -31,24 +31,24 @@
                         <Font name="Times New Roman Bold" size="16.0" />
                     </font>
                 </Label>
-                <TextArea fx:id="taEnglish" layoutX="14.0" layoutY="65.0" prefHeight="255.0" prefWidth="306.0" style="-fx-background-color: none; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: none;" />
+                <TextArea fx:id="taEnglish" layoutX="14.0" layoutY="65.0" prefHeight="255.0" prefWidth="306.0" style="-fx-background-color: none; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: none;" wrapText="true" />
             <Line endX="100.0" layoutX="224.0" layoutY="67.0" startX="-210.0" stroke="#ff0800" strokeWidth="1.5" />
             </children>
         </AnchorPane>
         <AnchorPane layoutX="521.0" layoutY="131.0" prefHeight="359.0" prefWidth="339.0" style="-fx-background-color: white; -fx-background-radius: 25px; -fx-border-color: FF0800; -fx-border-width: 1.5px; -fx-border-radius: 20px;">
             <children>
-                <Label layoutX="131.0" layoutY="14.0" prefHeight="42.0" prefWidth="78.0" text="Vietnamese" textAlignment="CENTER" textOverrun="CLIP">
+                <Label layoutX="131.0" layoutY="14.0" prefHeight="42.0" prefWidth="87.0" text="Vietnamese" textAlignment="CENTER" textOverrun="CLIP">
                     <font>
                         <Font name="Times New Roman Bold" size="16.0" />
                     </font>
                 </Label>
-                <TextArea fx:id="taVietnamese" layoutX="17.0" layoutY="69.0" prefHeight="255.0" prefWidth="306.0" style="-fx-background-color: white;" />
+                <TextArea fx:id="taVietnamese" layoutX="17.0" layoutY="69.0" prefHeight="255.0" prefWidth="306.0" style="-fx-background-color: white;" wrapText="true" />
             <Line endX="100.0" layoutX="222.0" layoutY="69.0" startX="-205.0" stroke="#ff0800" strokeWidth="1.5" />
             </children>
         </AnchorPane>
-      <Label fx:id="oldWord" layoutX="254.0" layoutY="53.0" prefHeight="17.0" prefWidth="104.0" text="Label" textFill="WHITE">
+      <Label fx:id="oldWord" layoutX="254.0" layoutY="53.0" prefHeight="39.0" prefWidth="300.0" text="Label" textFill="WHITE">
          <font>
-            <Font name="Times New Roman Bold" size="32.0" />
+            <Font name="Segoe UI Bold" size="32.0" />
          </font>
       </Label>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a4878" height="600.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="77.0" />
