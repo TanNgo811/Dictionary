@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import javazoom.jl.decoder.JavaLayerException;
@@ -81,6 +82,12 @@ public class MainController_db implements Initializable {
     @FXML
     public SVGPath GoogleSVG;
 
+    @FXML
+    public Button btnMinimize;
+
+    @FXML
+    public AnchorPane apMain;
+
 //    Dictionary mainDictionary = new Dictionary();
 //    DictionaryManagement management = new DictionaryManagement();
 
@@ -93,13 +100,13 @@ public class MainController_db implements Initializable {
 
     final String HOVERED_BUTTON_STYLE2 = "-fx-background-color: #ff0800; -fx-background-radius: 10px; -fx-text-fill: white";
     final String IDLE_BUTTON_STYLE2 = "-fx-background-color: transparent; -fx-text-fill: #ff0800; -fx-border-color: #ff0800; -fx-border-radius: 10px";
-
-
-
-
+    double x = 0, y = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        lbWord.setText("OpenSource E-V Dictionary");
+        taMeaning.setText("Main developer: NGO TIEN TAN - 18021123\n & LE TIEN PHAT - 18020993 \nWord & translation source from Oxford Basic Dictionary & Google Translate Source");
+
         mainDictionary.words.clear();
 //        DictionaryManagement.insertFromFile(mainDictionary);
         insertFromDatabase(mainDictionary);
@@ -177,6 +184,7 @@ public class MainController_db implements Initializable {
         setStyleOnHover(btnExport, HOVERED_BUTTON_STYLE, IDLE_BUTTON_STYLE);
         setStyleOnHover(btnEdit, HOVERED_BUTTON_STYLE, IDLE_BUTTON_STYLE);
         setStyleOnHover(btnExit, HOVERED_BUTTON_STYLE, IDLE_BUTTON_STYLE);
+        setStyleOnHover(btnMinimize, HOVERED_BUTTON_STYLE, IDLE_BUTTON_STYLE);
 
 //        setStyleOnHover(us, HOVERED_BUTTON_STYLE2, IDLE_BUTTON_STYLE2);
 //        setStyleOnHover(uk, HOVERED_BUTTON_STYLE2, IDLE_BUTTON_STYLE2);
@@ -185,10 +193,34 @@ public class MainController_db implements Initializable {
 //        GoogleSVG.setOnMouseEntered(e -> {GoogleSVG.setStyle("-fx-fill: white");});
 //        GoogleSVG.setOnMouseExited(e -> {GoogleSVG.setStyle("-fx-fill: #ff0800");});
 
+        btnMinimize.setOnMouseClicked(event -> {
+//            ((Stage)((Button)event.getSource()).getScene().getWindow()).setIconified(true);
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.setIconified(true);
+        });
+
         btnExit.setOnMouseClicked(event -> {
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.close();
         });
+
+
+        try {
+            apMain.setOnMousePressed(event -> {
+                x = event.getSceneY();
+                y = event.getSceneY();
+            });
+
+            apMain.setOnMouseDragged(event -> {
+                Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setX(event.getScreenX()-x);
+                stage.setY(event.getScreenY()-y);
+            });
+        } catch (Exception e) {
+
+        }
+
+
     }
 
 

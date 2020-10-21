@@ -147,7 +147,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
             <graphic>
-                <SVGPath content="M480 480H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h448c17.7 0 32 14.3 32 32s-14.3 32-32 32z" fill="WHITE" scaleX="0.05" scaleY="0.05" translateY="10.0" />
+                <SVGPath content="M480 480H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h448c17.7 0 32 14.3 32 32s-14.3 32-32 32z" fill="WHITE" scaleX="0.05" scaleY="0.05" scaleZ="0.0" translateY="1.0" />
             </graphic>
             <tooltip><Tooltip showDelay="100ms" text="Minimize" /></tooltip>
         </Button>

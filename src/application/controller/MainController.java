@@ -175,6 +175,10 @@ public class MainController implements Initializable {
         setStyleOnHover(btnExit);
         setStyleOnHover(btnMinimize);
 
+        btnMinimize.setOnMouseClicked(event -> {
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.hide();
+        });
         btnExit.setOnMouseClicked(event -> {
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.close();
