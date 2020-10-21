@@ -117,9 +117,25 @@ public class DictionaryManagement {
     }
 
     /**
+     * Add Words Function.
+     */
+    public static void addAdvanceWords(Dictionary testDictionary, String english, String vietnamese, String pronounce, String type) {
+        AdvancedWord newWord = new AdvancedWord(english, vietnamese,type,pronounce);
+        testDictionary.words.add(newWord);
+    }
+
+    /**
      * Edit Words Function.
      */
     public static void editWords(Dictionary testDictionary, String english, String vietnamese) {
+        for (Word i : testDictionary.words) {
+            if (i.getWordTarget().equals(english)) {
+                i.setWordExplain(vietnamese);
+            }
+        }
+    }
+
+    public static void editAdvanceWords(Dictionary testDictionary, String english, String vietnamese, String pronounce, String type) {
         for (Word i : testDictionary.words) {
             if (i.getWordTarget().equals(english)) {
                 i.setWordExplain(vietnamese);

@@ -1,30 +1,21 @@
-package application.controller;
+package application.controller_with_db;
 
-import code.Dictionary;
 import code.DictionaryManagement;
 import code.Word;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javazoom.jl.decoder.JavaLayerException;
-import tools.DictionarySearcher;
-import tools.TextToSpeechGoogle;
-import application.controller.EditController;
-
-import static application.Main.mainDictionary;
-import static application.controller.NotiWindow.openAlertWindow;
-import static tools.Database.insertFromDatabase;
-
-import javafx.scene.control.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
-import javafx.scene.input.MouseEvent;
-
-import javafx.event.ActionEvent;
+import javazoom.jl.decoder.JavaLayerException;
+import tools.DictionarySearcher;
+import tools.TextToSpeechGoogle;
 import tools.Translator;
 
 import java.io.IOException;
@@ -35,7 +26,12 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MainController implements Initializable {
+import static application.Main.mainDictionary;
+import static application.controller.NotiWindow.openAlertWindow;
+import static tools.Database.deleteFromDatabase;
+import static tools.Database.insertFromDatabase;
+
+public class MainController_db implements Initializable {
 
     @FXML
     public Button btnEdit;
@@ -76,21 +72,37 @@ public class MainController implements Initializable {
     @FXML
     public Button btnExit;
 
+    @FXML
+    public Button us;
+
+    @FXML
+    public Button uk;
+
+    @FXML
+    public SVGPath GoogleSVG;
+
 //    Dictionary mainDictionary = new Dictionary();
 //    DictionaryManagement management = new DictionaryManagement();
 
-    public MainController(){
+    public MainController_db(){
 
     }
 
     final String HOVERED_BUTTON_STYLE = "-fx-background-color: #858585";//-fx-outer-border, -fx-inner-border, -fx-body-color;
-    final String IDLE_BUTTON_STYLE = "-fx-background-color: transparent;";
+    final String IDLE_BUTTON_STYLE = "-fx-background-color: transparent";
+
+    final String HOVERED_BUTTON_STYLE2 = "-fx-background-color: #ff0800; -fx-background-radius: 10px; -fx-text-fill: white";
+    final String IDLE_BUTTON_STYLE2 = "-fx-background-color: transparent; -fx-text-fill: #ff0800; -fx-border-color: #ff0800; -fx-border-radius: 10px";
+
+
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mainDictionary.words.clear();
-        DictionaryManagement.insertFromFile(mainDictionary);
-//        insertFromDatabase(mainDictionary);
+//        DictionaryManagement.insertFromFile(mainDictionary);
+        insertFromDatabase(mainDictionary);
         DictionaryManagement.sortWords(mainDictionary);
         this.updateWordList(mainDictionary.words);
 
@@ -143,6 +155,7 @@ public class MainController implements Initializable {
             String word = lbWord.getText();
             if (!word.equals("")) {
                 DictionaryManagement.deleteWords(mainDictionary, word);
+                deleteFromDatabase(word);
                 System.out.println("Delete Worked!!!");
                 openAlertWindow("Delete \"" + word + " \"Successfully!");
                 updateWordList(mainDictionary.words);
@@ -152,18 +165,25 @@ public class MainController implements Initializable {
                 System.out.println("Nothing to Delete!!!");
                 openAlertWindow("Nothing to Delete!!!");
             }
-            DictionaryManagement.dictionaryExportToFile(mainDictionary, "dict2");
+//            DictionaryManagement.dictionaryExportToFile(mainDictionary, "dict2");
         });
 
         btnGTranslate.setOnMouseClicked(event -> {
             GoogleTranslate(lbWord.getText());
         });
 
-        setStyleOnHover(btnAdd);
-        setStyleOnHover(btnDelete);
-        setStyleOnHover(btnExport);
-        setStyleOnHover(btnEdit);
-        setStyleOnHover(btnExit);
+        setStyleOnHover(btnAdd, HOVERED_BUTTON_STYLE, IDLE_BUTTON_STYLE);
+        setStyleOnHover(btnDelete, HOVERED_BUTTON_STYLE, IDLE_BUTTON_STYLE);
+        setStyleOnHover(btnExport, HOVERED_BUTTON_STYLE, IDLE_BUTTON_STYLE);
+        setStyleOnHover(btnEdit, HOVERED_BUTTON_STYLE, IDLE_BUTTON_STYLE);
+        setStyleOnHover(btnExit, HOVERED_BUTTON_STYLE, IDLE_BUTTON_STYLE);
+
+//        setStyleOnHover(us, HOVERED_BUTTON_STYLE2, IDLE_BUTTON_STYLE2);
+//        setStyleOnHover(uk, HOVERED_BUTTON_STYLE2, IDLE_BUTTON_STYLE2);
+//        setStyleOnHover(btnGTranslate, HOVERED_BUTTON_STYLE2, IDLE_BUTTON_STYLE2);
+//
+//        GoogleSVG.setOnMouseEntered(e -> {GoogleSVG.setStyle("-fx-fill: white");});
+//        GoogleSVG.setOnMouseExited(e -> {GoogleSVG.setStyle("-fx-fill: #ff0800");});
 
         btnExit.setOnMouseClicked(event -> {
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -220,7 +240,7 @@ public class MainController implements Initializable {
         loader.setLocation(getClass().getResource("../fxml/EditWord.fxml"));
         Parent editViewParent = loader.load();
 //        editViewParent = FXMLLoader.load(getClass().getResource("EditWord.fxml"));
-        EditController editController = loader.getController();
+        EditController_db editController = loader.getController();
         editController.setWordEdit(getWordEdit());
 
         Scene scene = new Scene(editViewParent);
@@ -263,10 +283,11 @@ public class MainController implements Initializable {
 
     }
 
-    public void setStyleOnHover(Button btn){
-        btn.setOnMouseEntered(e -> {btn.setStyle(HOVERED_BUTTON_STYLE);});
-        btn.setOnMouseExited(e -> {btn.setStyle(IDLE_BUTTON_STYLE);});
+    public void setStyleOnHover(Button btn, String hover, String idle){
+        btn.setOnMouseEntered(e -> {btn.setStyle(hover);});
+        btn.setOnMouseExited(e -> {btn.setStyle(idle);});
     }
+
 
     public void PLayTextToSpeechAudio(String word, String language) {
         TextToSpeechGoogle audio = new TextToSpeechGoogle();
@@ -279,7 +300,7 @@ public class MainController implements Initializable {
         try {
             sound = audio.getAudio(word, language);
         } catch (IOException ioe) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ioe);
+            Logger.getLogger(MainController_db.class.getName()).log(Level.SEVERE, null, ioe);
         }
 
         try {
@@ -287,7 +308,7 @@ public class MainController implements Initializable {
                 audio.play(sound);
             }
         } catch (JavaLayerException jle) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, jle);
+            Logger.getLogger(MainController_db.class.getName()).log(Level.SEVERE, null, jle);
         }
     }
 

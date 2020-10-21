@@ -30,7 +30,7 @@ public class Database {
             // Statements allow to issue SQL queries to the database
             statement = connect.createStatement();
             // Result set get the result of the SQL query
-            resultSet = statement.executeQuery("select * from eng_vie.av;");
+            resultSet = statement.executeQuery("select * from entries.entries;");
 
             while (resultSet.next()) {
                 String word = resultSet.getString("word");
@@ -58,7 +58,7 @@ public class Database {
             // Statements allow to issue SQL queries to the database
             statement = connect.createStatement();
             // Result set get the result of the SQL query
-            resultSet = statement.executeQuery("select * from eng_vie.av limit 10;");
+            resultSet = statement.executeQuery("select * from entries.entries limit 10;");
             writeResultSet(resultSet);
         } catch (Exception e) {
 
@@ -178,12 +178,13 @@ public class Database {
     }
 
     public static void main(String[] args) throws Exception {
-//        Word newWord = new Word();
-//        newWord.setWordTarget("asdefgh");
-//        newWord.setWordExplain("dc pls du me");
+        Word newWord = new Word();
+        newWord.setWordTarget("my name is tan");
+        newWord.setWordExplain("help me plssssssss");
 //        addIntoDatabase(newWord);
 
-//        deleteFromDatabase(newWord.getWordTarget());
+
+        deleteFromDatabase(newWord.getWordTarget());
 //        Class.forName("com.mysql.jdbc.Driver");
 //        // Setup the connection with the DB
 //        connect = DriverManager.getConnection(url, user, pass);
