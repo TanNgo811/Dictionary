@@ -1,26 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ExportController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller_with_db.ExportController">
     <children>
-        <Label layoutX="14.0" layoutY="15.0" prefHeight="42.0" prefWidth="185.0" text="EXPORT FILE" textAlignment="CENTER" textOverrun="CLIP">
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#403f40" height="600.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="900.0" />
+        <Label layoutX="129.0" layoutY="51.0" prefHeight="42.0" prefWidth="185.0" text="EXPORT FILE" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
             <font>
-                <Font name="System Bold" size="20.0" />
+                <Font name="Bai Jamjuree Bold" size="20.0" />
             </font>
         </Label>
-        <Button fx:id="btnCancel" layoutX="452.0" layoutY="24.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="134.0" text="Cancel" />
-        <Button fx:id="btnConfirm" layoutX="304.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="Confirm" />
-        <AnchorPane layoutX="14.0" layoutY="66.0" prefHeight="320.0" prefWidth="572.0" style="-fx-background-color: orange;">
+        <Button fx:id="btnCancel" layoutX="726.0" layoutY="542.0" mnemonicParsing="false" onAction="#goBack" prefHeight="31.0" prefWidth="134.0" style="-fx-background-color: none; -fx-border-color: ff0800; -fx-border-radius: 20px;" text="Cancel" textFill="#ff0800">
+            <font>
+                <Font name="Bai Jamjuree Regular" size="14.0" />
+            </font>
+        </Button>
+        <Button fx:id="btnConfirm" layoutX="578.0" layoutY="541.0" mnemonicParsing="false" onAction="#confirmExport" prefHeight="31.0" prefWidth="134.0" style="-fx-background-radius: 20px; -fx-background-color: none; -fx-border-color: ff0800; -fx-border-radius: 20px; -fx-text-fill: ff0800;" text="Confirm" textFill="WHITE">
+            <font>
+                <Font name="Bai Jamjuree Regular" size="14.0" />
+            </font>
+        </Button>
+        <AnchorPane layoutX="129.0" layoutY="198.0" prefHeight="71.0" prefWidth="726.0">
             <children>
-                <TextField fx:id="tfFileName" layoutX="11.0" layoutY="65.0" prefHeight="37.0" prefWidth="541.0" />
-                <Label layoutX="14.0" layoutY="28.0" prefHeight="37.0" prefWidth="143.0" text="File Name" textAlignment="CENTER" textOverrun="CLIP">
+                <TextField fx:id="tfFileName" layoutX="131.0" layoutY="14.0" prefHeight="37.0" prefWidth="567.0" />
+                <Label layoutX="14.0" layoutY="14.0" prefHeight="37.0" prefWidth="143.0" text="File Name" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
                     <font>
-                        <Font name="System Bold" size="20.0" />
+                        <Font name="Bai Jamjuree Regular" size="20.0" />
                     </font>
                 </Label>
-            </children></AnchorPane>
+            </children>
+        </AnchorPane>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2a4878" height="600.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="77.0" />
+        <ImageView fitHeight="45.0" fitWidth="50.0" layoutX="16.0" layoutY="49.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../img/logo.png" />
+            </image>
+        </ImageView>
+      <ListView fx:id="lvSearchWords" layoutX="262.0" layoutY="276.0" prefHeight="200.0" prefWidth="567.0" />
     </children>
 </AnchorPane>

@@ -186,6 +186,30 @@ public class DictionaryManagement {
         }
     }
 
+    /**
+     * Export To File Function.
+     */
+    public static void wordsExportToFile(ArrayList<Word> words, String file) {
+        try {
+            File fout = new File(".\\src\\" + file + ".txt");
+            FileOutputStream fos = new FileOutputStream(fout);
+
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+            for (Word i : words) {
+//                bw.write(i.getWordTarget() + "\t" + i.getWordExplain());
+                bw.write(i.getWordTarget() + "\t" + i.getWordExplain());
+                bw.newLine();
+            }
+//            fileWriter.write("Files in Java might be tricky, but it is fun enough!");
+//            fileWriter.write(newDictionary.words.get(1).getWordTarget() + " " + newDictionary.words.get(1).getWordExplain());
+            bw.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
     public static void sortWords(Dictionary testDictionary) {
         testDictionary.words.sort(new Comparator<Word>() {
             @Override

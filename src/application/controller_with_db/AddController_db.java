@@ -54,7 +54,7 @@ public class AddController_db implements Initializable {
     public void handleBtnConfirm (ActionEvent actionEvent) throws IOException {
         String wordTarget = taEnglish.getText();
         String wordExplain = taVietnamese.getText();
-        Word newWord = new Word(wordTarget, wordExplain);
+        Word newWord = new Word(wordTarget.toLowerCase(), wordExplain);
         if (wordTarget == null || wordExplain == null || wordTarget.equals("") || wordExplain.equals("")) {
             System.out.println("Add Error!");
             openAlertWindow("Add Error!");

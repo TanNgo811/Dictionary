@@ -68,9 +68,6 @@ public class MainController_db implements Initializable {
     public ImageView imgSearch;
 
     @FXML
-    public ImageView imgSound;
-
-    @FXML
     public Button btnExit;
 
     @FXML
@@ -90,12 +87,13 @@ public class MainController_db implements Initializable {
 
 //    Dictionary mainDictionary = new Dictionary();
 //    DictionaryManagement management = new DictionaryManagement();
+    ArrayList<Word> searchedWords = new ArrayList<Word>();
 
     public MainController_db(){
 
     }
 
-    final String HOVERED_BUTTON_STYLE = "-fx-background-color: #858585";//-fx-outer-border, -fx-inner-border, -fx-body-color;
+    final String HOVERED_BUTTON_STYLE = "-fx-background-color: #858585";
     final String IDLE_BUTTON_STYLE = "-fx-background-color: transparent";
 
     final String HOVERED_BUTTON_STYLE2 = "-fx-background-color: #ff0800; -fx-background-radius: 10px; -fx-text-fill: white";
@@ -151,6 +149,7 @@ public class MainController_db implements Initializable {
                     Word clickedWord = DictionarySearcher.exactSearcherWord(searchedWord, mainDictionary.words);
                     lbWord.setText(searchedWord);
                     taMeaning.setText(clickedWord.getWordExplain());
+                    searchedWords.add(clickedWord);
                 }
             } catch (NullPointerException e) {
                     System.out.println("Nothing Here!!!");
@@ -235,6 +234,10 @@ public class MainController_db implements Initializable {
         return new Word(lbWord.getText(), taMeaning.getText());
     }
 
+    public ArrayList<Word> getSearchWords() {
+        return searchedWords;
+    }
+
     public void GoogleTranslate(String text) {
         String wordExplain;
         try {
@@ -293,13 +296,19 @@ public class MainController_db implements Initializable {
     }
 
     public void handleExport(ActionEvent actionEvent) throws IOException{
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/ExportFile.fxml"));
-        Parent editViewParent = loader.load();
+        if (searchedWords.isEmpty()) {
+            openAlertWindow("Please search some words to export!");
+        } else {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../fxml/ExportFile.fxml"));
+            Parent editViewParent = loader.load();
+            ExportController exportController = loader.getController();
+            exportController.setLVSearchWords(getSearchWords());
 //        Parent editViewParent = FXMLLoader.load(getClass().getResource("EditWord.fxml"));
-        Scene scene = new Scene(editViewParent);
-        stage.setScene(scene);
+            Scene scene = new Scene(editViewParent);
+            stage.setScene(scene);
+        }
     }
 
     public void handleTextToSpeed(ActionEvent actionEvent)
