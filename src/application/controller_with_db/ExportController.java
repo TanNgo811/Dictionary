@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static application.Main.searchedWords;
 import static application.controller.NotiWindow.openAlertWindow;
 import static code.DictionaryManagement.wordsExportToFile;
 
@@ -35,20 +36,23 @@ public class ExportController implements Initializable {
     @FXML
     public ListView lvSearchWords;
 
-    ArrayList<Word> searchedWords;
+//    ArrayList<Word> searchedWords;
 
-    public void setLVSearchWords(ArrayList<Word> words) {
-        searchedWords = words;
-        for (Word i : searchedWords) {
-            lvSearchWords.getItems().add(i.getWordTarget());
-        }
-    }
+//    public void setLVSearchWords(ArrayList<Word> words) {
+//        searchedWords = words;
+//        for (Word i : searchedWords) {
+//            lvSearchWords.getItems().add(i.getWordTarget());
+//        }
+//    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setStyleOnHover(btnConfirm);
         setStyleOnHover(btnCancel);
-
+        lvSearchWords.getItems().clear();
+        for (Word i : searchedWords) {
+            lvSearchWords.getItems().add(i.getWordTarget());
+        }
     }
 
     public void confirmExport(ActionEvent actionEvent) throws IOException {
