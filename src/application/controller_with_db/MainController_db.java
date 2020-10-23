@@ -110,8 +110,8 @@ public class MainController_db implements Initializable {
         taMeaning.setText("Main developer: \nNGO TIEN TAN - 18021123\n & LE TIEN PHAT - 18020993 \nWord & translation source from http://informatik.uni-lebzig.de/~duc/Dict & Google Translate Source");
 
         mainDictionary.words.clear();
-//        DictionaryManagement.insertFromFile(mainDictionary);
-        insertFromDatabase(mainDictionary);
+        DictionaryManagement.insertFromFile(mainDictionary);
+//        insertFromDatabase(mainDictionary);
         DictionaryManagement.sortWords(mainDictionary);
         this.updateWordList(mainDictionary.words);
 
@@ -134,6 +134,7 @@ public class MainController_db implements Initializable {
             try {
                 lbWord.setText(searchList.get(0).getWordTarget());
                 taMeaning.setText(searchList.get(0).getWordExplain());
+                searchedWords.add(searchList.get(0));
             } catch (IndexOutOfBoundsException ibe) {
                 GoogleTranslate(tfSearchedWord.getText());
             }
@@ -241,6 +242,7 @@ public class MainController_db implements Initializable {
         try {
             lbWord.setText(text);
             wordExplain = Translator.translate("en", "vi", text);
+            searchedWords.add(new Word(text, wordExplain));
             taMeaning.setText(wordExplain + "\nSearch using Google Translate...." );
             System.out.println("Search using Google Translate....");
         } catch (IOException e) {
