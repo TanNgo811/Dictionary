@@ -111,8 +111,8 @@ public class MainController_db implements Initializable {
 
         mainDictionary.words.clear();
         DictionaryManagement.insertFromFile(mainDictionary);
-//        insertFromDatabase(mainDictionary);
-        DictionaryManagement.sortWords(mainDictionary);
+        insertFromDatabase(mainDictionary);
+//        DictionaryManagement.sortWords(mainDictionary);
         this.updateWordList(mainDictionary.words);
 
         taMeaning.setWrapText(true);
